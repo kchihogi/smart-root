@@ -1,6 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import {StyleSheet, Text, View} from 'react-native';
 
+/**
+ * App
+ * @return {View} The main screen of the app.
+ */
 export default function App() {
   return (
     <View style={styles.container}>
