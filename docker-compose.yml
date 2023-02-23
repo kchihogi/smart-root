@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    container_name: smart-root
+    tty: true
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    volumes:
+      - .:/home/smart-root
+    environment:
+      - REACT_NATIVE_PACKAGER_HOSTNAME=${LOCAL_IP_ADDR}
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
