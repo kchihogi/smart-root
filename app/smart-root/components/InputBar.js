@@ -8,7 +8,11 @@ import {
 
 /**
  * App
- * @return {View} The main screen of the app.
+ * @param {string} text User input text.
+ * @param {func} onChangeText function called when the text changed.
+ * @param {string} unit User input unit.
+ * @param {func} onUnitChange function called when the unit changed.
+ * @return {View} The input bar for user.
  */
 export default function InputBar({text, onChangeText, unit, onUnitChange}) {
   return (
@@ -41,14 +45,14 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   input: {
-    flex: 6,
+    flex: 8,
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 20,
     textAlign: 'center',
   },
   picker: {
-    flex: 4,
+    flex: 3,
     textAlign: 'center',
   },
 });
