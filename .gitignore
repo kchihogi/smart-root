@@ -33,3 +33,38 @@ venv.bak/
 *.code-workspace
 .vscode/launch.json
 .vscode/settings.json
+
+# Ignore node_modules directory
+/node_modules
+
+# Ignore Jest cache and coverage directories
+/.cache/
+/coverage/
+coverage/**/*
+
+# Ignore Jest output files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore compiled TypeScript files
+*.tsbuildinfo
+
+# Ignore macOS directory metadata files
+.DS_Store
+
+# Ignore editor configuration files
+.editorconfig
+.eslintignore
+.eslintrc.js
+.prettierignore
+.prettierrc.js
+
+# Ignore environment configuration files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore Jest configuration file
+jest.config.js
