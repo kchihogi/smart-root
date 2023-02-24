@@ -41,6 +41,7 @@ venv.bak/
 /.cache/
 /coverage/
 coverage/**/*
+**coverage
 
 # Ignore Jest output files
 npm-debug.log*
