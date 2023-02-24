@@ -18,3 +18,4 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         test-script: npm run testFinal
         threshold: 80
+        working-directory: app/smart-root
