@@ -9,12 +9,12 @@ defaults:
     working-directory: app/smart-root
 
 jobs:
-    coverage:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: ArtiomTr/jest-coverage-report-action@v2
-        with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            test-script: npm run testFinal
-            threshold: 80
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ArtiomTr/jest-coverage-report-action@v2
+    with:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
+      test-script: npm run testFinal
+      threshold: 80
