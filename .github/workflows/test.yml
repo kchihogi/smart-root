@@ -1,0 +1,19 @@
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+
+defaults:
+  run:
+    working-directory: app/smart-root
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+    - name: Run ESLint
+      run: npm run testFinal
