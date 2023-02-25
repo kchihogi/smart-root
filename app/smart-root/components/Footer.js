@@ -16,7 +16,6 @@ const onReset = () => {
 export default function Footer() {
   return (
     <View style={styles.box}>
-      <IconButton icon="fiber-new" label="Coming Soon" onPress={onReset} />
       <IconButton icon="refresh" label="Refresh" onPress={onReset} />
       <IconButton icon="star" label="Save" onPress={onReset} />
       <IconButton icon="settings" label="Settings" onPress={onReset} />

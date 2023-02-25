@@ -27,7 +27,7 @@ export default function InputBar({
         style={styles.input}
         onChangeText={onChangeText}
         value={text}
-        placeholder="分数や距離を入力してください"
+        placeholder="時間や距離を入力してください"
         keyboardType="numeric"
         onFocus={onFocus}
       />
@@ -49,15 +49,17 @@ const styles = StyleSheet.create({
   box: {
     flex: 1,
     flexDirection: 'row',
+    borderColor: 'black',
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    borderWidth: 1,
     margin: 10,
   },
   input: {
     flex: 8,
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 20,
     textAlign: 'center',
-    marginHorizontal: 5,
+    marginLeft: 5,
+    marginRight: 2,
   },
   picker: {
     flex: 3,

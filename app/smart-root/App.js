@@ -7,13 +7,13 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
-  Text,
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
 
 import Footer from './components/Footer';
 import InputBar from './components/InputBar';
+import GoogleMapViewer from './components/GoogleMapViewer';
 
 /**
  * App
@@ -46,8 +46,7 @@ export default function App() {
           />
         </View>
         <View style={styles.mapContainer}>
-          <Text>{text}</Text>
-          <Text>{unit}</Text>
+          <GoogleMapViewer/>
         </View>
         {showFooter ? (
           <View style={styles.footerContainer}>
@@ -71,9 +70,10 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
   },
   inputContainer: {
-    flex: 1,
     width: Dimensions.get('window').width,
-    backgroundColor: '#EE2C38',
+    zIndex: 1,
+    position: 'absolute',
+    top: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
   },
   mapContainer: {
     flex: 10,
