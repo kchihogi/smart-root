@@ -22,9 +22,19 @@ import InputBar from './components/InputBar';
 export default function App() {
   const [text, setText] = useState('');
   const [unit, setUnit] = useState('km');
+  const [showFooter, setShowFooter] = useState(true);
+
+  const onReset = () => {
+    Keyboard.dismiss();
+    setShowFooter(true);
+  };
+
+  const disableFooter = () => {
+    setShowFooter(false);
+  };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={onReset}>
       <SafeAreaView style={styles.container}>
         <View style={styles.inputContainer}>
           <InputBar
@@ -32,15 +42,20 @@ export default function App() {
             onChangeText={setText}
             unit={unit}
             onUnitChange={setUnit}
+            onFocus={disableFooter}
           />
         </View>
         <View style={styles.mapContainer}>
           <Text>{text}</Text>
           <Text>{unit}</Text>
         </View>
-        <View style={styles.footerContainer}>
-          <Footer/>
-        </View>
+        {showFooter ? (
+          <View style={styles.footerContainer}>
+            <Footer/>
+          </View>
+        ) : (
+          <View/>
+        )}
         <StatusBar style="light" />
       </SafeAreaView>
     </TouchableWithoutFeedback>

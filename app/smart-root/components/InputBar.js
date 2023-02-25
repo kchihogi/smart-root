@@ -7,14 +7,20 @@ import {
 } from 'react-native';
 
 /**
- * App
+ * InputBar
  * @param {string} text User input text.
  * @param {func} onChangeText function called when the text changed.
  * @param {string} unit User input unit.
  * @param {func} onUnitChange function called when the unit changed.
+ * @param {func} onFocus function called when focused.
  * @return {View} The input bar for user.
  */
-export default function InputBar({text, onChangeText, unit, onUnitChange}) {
+export default function InputBar({
+  text,
+  onChangeText,
+  unit,
+  onUnitChange,
+  onFocus}) {
   return (
     <View style={styles.box}>
       <TextInput
@@ -23,6 +29,7 @@ export default function InputBar({text, onChangeText, unit, onUnitChange}) {
         value={text}
         placeholder="分数や距離を入力してください"
         keyboardType="numeric"
+        onFocus={onFocus}
       />
       <Picker
         style={styles.picker}
@@ -42,7 +49,7 @@ const styles = StyleSheet.create({
   box: {
     flex: 1,
     flexDirection: 'row',
-    paddingVertical: 5,
+    margin: 10,
   },
   input: {
     flex: 8,
@@ -50,10 +57,12 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 20,
     textAlign: 'center',
+    marginHorizontal: 5,
   },
   picker: {
     flex: 3,
     textAlign: 'center',
+    marginRight: 5,
   },
 });
 
@@ -62,4 +71,5 @@ InputBar.propTypes = {
   onChangeText: PropTypes.func.isRequired,
   unit: PropTypes.string.isRequired,
   onUnitChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
 };
