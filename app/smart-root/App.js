@@ -12,8 +12,8 @@ import {
   Keyboard,
 } from 'react-native';
 
+import Footer from './components/Footer';
 import InputBar from './components/InputBar';
-import IconButton from './components/IconButton';
 
 /**
  * App
@@ -22,10 +22,6 @@ import IconButton from './components/IconButton';
 export default function App() {
   const [text, setText] = useState('');
   const [unit, setUnit] = useState('km');
-
-  const onReset = () => {
-    //
-  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -43,10 +39,7 @@ export default function App() {
           <Text>{unit}</Text>
         </View>
         <View style={styles.footerContainer}>
-          <IconButton icon="fiber-new" label="Coming Soon" onPress={onReset} />
-          <IconButton icon="refresh" label="Refresh" onPress={onReset} />
-          <IconButton icon="star" label="Save" onPress={onReset} />
-          <IconButton icon="settings" label="Settings" onPress={onReset} />
+          <Footer/>
         </View>
         <StatusBar style="light" />
       </SafeAreaView>
@@ -74,8 +67,6 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
     width: Dimensions.get('window').width,
     backgroundColor: '#32B76C',
   },
