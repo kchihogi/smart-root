@@ -10,7 +10,6 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
-  Text,
 } from 'react-native';
 
 import Footer from './components/Footer';
@@ -26,28 +25,29 @@ export default function App() {
   const [unit, setUnit] = useState('km');
   const [showFooter, setShowFooter] = useState(true);
   const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const watchConfig = {
+    accuracy: Location.Accuracy.High,
+    distanceInterval: 2,
+    timeInterval: 3000,
+  };
 
   useEffect(() => {
     (async () => {
-
-      let { status } = await Location.requestForegroundPermissionsAsync();
+      const {status} = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
+        setLocation(null);
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
+      await Location.watchPositionAsync(
+          watchConfig,
+          (loc) => {
+            setLocation(loc);
+          },
+      );
     })();
   }, []);
-
-  let loctext = 'Waiting..';
-  if (errorMsg) {
-    loctext = errorMsg;
-  } else if (location) {
-    loctext = JSON.stringify(location);
-  }
 
   const onReset = () => {
     Keyboard.dismiss();
@@ -71,16 +71,14 @@ export default function App() {
           />
         </View>
         <View style={styles.mapContainer}>
-          <GoogleMapViewer/>
+          <GoogleMapViewer location={location}/>
         </View>
         {showFooter ? (
           <View style={styles.footerContainer}>
             <Footer/>
           </View>
         ) : (
-          <View style={styles.footerContainer}>
-            <Text>{loctext}</Text>
-          </View>
+          <View/>
         )}
         <StatusBar style="light" />
       </SafeAreaView>
