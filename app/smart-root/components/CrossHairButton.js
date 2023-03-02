@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     padding: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    opacity: 70,
+    backgroundColor: '#E6E6E6',
+    opacity: 0.7,
   },
 });
 
