@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import {StyleSheet} from 'react-native';
-import MapView,
-{
-  Marker,
+import React, {useState, useRef} from 'react';
+import {StyleSheet, View} from 'react-native';
+import MapView, {
+  PROVIDER_GOOGLE,
 } from 'react-native-maps';
+
+import CrossHairButton from './CrossHairButton';
 
 /**
  * GoogleMapViewer
@@ -13,41 +14,68 @@ import MapView,
  */
 export default function GoogleMapViewer({
   location}) {
-  const initialRegion= {
+  const mapRef = useRef();
+  const [region, setRegion] = useState({
     latitude: 35.689521,
     longitude: 139.691704,
     latitudeDelta: 0.0460,
     longitudeDelta: 0.0260,
+  });
+  const [followUser, setFollowUser] = useState(true);
+
+  const onRegionChange = (region) => {
+    const lat = region.latitudeDelta;
+    const lon = region.longitudeDelta;
+    setRegion((region) => ({
+      ...region,
+      latitudeDelta: lat,
+      longitudeDelta: lon,
+    }));
   };
 
-  console.log(location);
+  const onPressCrossHairButton = () => {
+    setFollowUser(true);
+  };
 
-  if (location) {
-    const region= {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta: 0.0460,
-      longitudeDelta: 0.0260,
-    };
-    console.log(region);
-    return (
-      <MapView style={styles.map}
-        initialRegion={initialRegion}
-        region={region}
+  const onUserLocationChange = (event) => {
+    if (followUser) {
+      const newRegion = event.nativeEvent.coordinate;
+      setRegion((region) => ({
+        ...region,
+        latitude: newRegion.latitude,
+        longitude: newRegion.longitude,
+      }));
+      mapRef.current.animateToRegion(region, 500);
+    }
+  };
+
+  const onPanDrag = () => {
+    setFollowUser(false);
+  };
+
+  return (
+    <View style={StyleSheet.absoluteFillObject}>
+      <MapView ref={mapRef} style={styles.map}
+        provider={PROVIDER_GOOGLE}
+        initialRegion={region}
+        mapType='standard'
+        userInterfaceStyle='light'
+        showsUserLocation={true}
+        showsMyLocationButton={false}
+        showsCompass={true}
+        onRegionChange={onRegionChange}
+        onUserLocationChange={onUserLocationChange}
+        onPanDrag={onPanDrag}
       >
-        <Marker coordinate={location.coords} />
       </MapView>
-    );
-  } else {
-    return (
-      <MapView style={styles.map}
-        initialRegion={initialRegion}
-        region={initialRegion}
-      >
-        <Marker coordinate={initialRegion} />
-      </MapView>
-    );
-  }
+      <View style={{position: 'absolute', right: '2%', bottom: '1%'}}>
+        <CrossHairButton
+          icon={followUser ? 'crosshairs-gps' : 'crosshairs'}
+          onPress={onPressCrossHairButton}
+        />
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
