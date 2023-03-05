@@ -12,11 +12,11 @@ export default function CrossHairButton({followUser, onPress}) {
   let icon = 'crosshairs';
   let iconColor = 'black';
   if (followUser) {
-    icon = 'crosshairs';
-    iconColor = 'black';
-  } else {
     icon = 'crosshairs-gps';
     iconColor = 'blue';
+  } else {
+    icon = 'crosshairs';
+    iconColor = 'black';
   }
   return (
     <Pressable style={styles.button} onPress={onPress}>
