@@ -9,5 +9,4 @@ RUN apk update && \
     apk add --upgrade grep
 
 RUN yarn global add expo-cli
-
-RUN yarn global add expo-cli
+RUN yarn global add eas-cli

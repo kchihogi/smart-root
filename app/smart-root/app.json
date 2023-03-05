@@ -24,6 +24,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.kchihogi.smartroot",
+      "versionCode": 1,
       "config": {
         "googleMaps": {
           "apiKey": "YOU_NEED_API_KEY_ON_ENV_VAL"
@@ -36,6 +38,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "05fda9c4-7423-497a-a0ec-d93672bd2445"
+      }
     }
   }
 }
