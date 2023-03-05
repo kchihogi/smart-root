@@ -26,6 +26,19 @@ export default function GoogleMapViewer({
   });
   const [followUser, setFollowUser] = useState(true);
 
+  const [coordinates, setCoordinates] = useState([
+    {latitude: 35.71972830204258, longitude: 139.3949006976562},
+    {latitude: 35.72124244805374, longitude: 139.3969839350085},
+    {latitude: 35.72199229601006, longitude: 139.3931971193054},
+    {latitude: 35.72236721734171, longitude: 139.3899952588736},
+    {latitude: 35.71945419466930, longitude: 139.3831424439336},
+    {latitude: 35.71972830204258, longitude: 139.3949006976562},
+  ]);
+
+  const MAP_API_KEY = Platform.OS === 'android' ?
+   Constants.manifest.android.config.googleMaps.apiKey :
+   Constants.manifest.ios.config.googleMapsApiKey;
+
   const onRegionChange = (region) => {
     const lat = region.latitudeDelta;
     const lon = region.longitudeDelta;
@@ -56,11 +69,19 @@ export default function GoogleMapViewer({
     setFollowUser(false);
   };
 
-  const origin = {latitude: 35.689521, longitude: 139.691704};
-  const destination = {latitude: 35.71968474925, longitude: 139.39490069765};
-  const MAP_API_KEY = Platform.OS === 'android' ?
-   Constants.manifest.android.config.googleMaps.apiKey :
-   Constants.manifest.ios.config.googleMapsApiKey;
+  const onMapDirStart = (params) => {
+    console.log(`Started routing between "${params.origin}"and "${params.destination}"`);
+  };
+
+  const onMapDirReady = (result) => {
+    console.log(`Distance: ${result.distance} km`);
+    console.log(`Duration: ${result.duration} min.`);
+
+    mapRef.current.fitToCoordinates(
+        result.coordinates,
+        {animated: true},
+    );
+  };
 
   return (
     <View style={StyleSheet.absoluteFillObject}>
@@ -76,11 +97,23 @@ export default function GoogleMapViewer({
         onUserLocationChange={onUserLocationChange}
         onPanDrag={onPanDrag}
       >
-        <MapViewDirections
-          origin={origin}
-          destination={destination}
-          apikey={MAP_API_KEY}
-        />
+        {(coordinates.length >= 2) && (
+          <MapViewDirections
+            origin={coordinates[0]}
+            waypoints={
+              (coordinates.length > 2) ? coordinates.slice(1, -1): undefined
+            }
+            destination={coordinates[coordinates.length-1]}
+            apikey={MAP_API_KEY}
+            language='ja'
+            mode='WALKING'
+            strokeWidth={3}
+            strokeColor="hotpink"
+            optimizeWaypoints={true}
+            onStart={onMapDirStart}
+            onReady={onMapDirReady}
+          />
+        )}
       </MapView>
       <View style={{position: 'absolute', right: '2%', bottom: '1%'}}>
         <CrossHairButton
