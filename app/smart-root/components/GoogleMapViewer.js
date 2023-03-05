@@ -2,10 +2,11 @@
 import Constants from 'expo-constants';
 import PropTypes from 'prop-types';
 import React, {useState, useRef} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Platform} from 'react-native';
 import MapView, {
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
 
 import CrossHairButton from './CrossHairButton';
 
@@ -55,7 +56,11 @@ export default function GoogleMapViewer({
     setFollowUser(false);
   };
 
-  console.log(Constants);
+  const origin = {latitude: 35.689521, longitude: 139.691704};
+  const destination = {latitude: 35.71968474925, longitude: 139.39490069765};
+  const MAP_API_KEY = Platform.OS === 'android' ?
+   Constants.manifest.android.config.googleMaps.apiKey :
+   Constants.manifest.ios.config.googleMapsApiKey;
 
   return (
     <View style={StyleSheet.absoluteFillObject}>
@@ -71,6 +76,11 @@ export default function GoogleMapViewer({
         onUserLocationChange={onUserLocationChange}
         onPanDrag={onPanDrag}
       >
+        <MapViewDirections
+          origin={origin}
+          destination={destination}
+          apikey={MAP_API_KEY}
+        />
       </MapView>
       <View style={{position: 'absolute', right: '2%', bottom: '1%'}}>
         <CrossHairButton

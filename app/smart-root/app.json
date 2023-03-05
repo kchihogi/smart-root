@@ -19,14 +19,14 @@
     ],
     "ios": {
       "config": {
-        "googleMapsApiKey": "iso_google_api_key"
+        "googleMapsApiKey": "YOU_NEED_API_KEY_ON_ENV_VAL"
       },
       "supportsTablet": true
     },
     "android": {
       "config": {
         "googleMaps": {
-          "apiKey": "adroid_google_api_key"
+          "apiKey": "YOU_NEED_API_KEY_ON_ENV_VAL"
         }
       },
       "adaptiveIcon": {
