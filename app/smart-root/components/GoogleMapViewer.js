@@ -1,3 +1,5 @@
+
+import Constants from 'expo-constants';
 import PropTypes from 'prop-types';
 import React, {useState, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
@@ -52,6 +54,8 @@ export default function GoogleMapViewer({
   const onPanDrag = () => {
     setFollowUser(false);
   };
+
+  console.log(Constants);
 
   return (
     <View style={StyleSheet.absoluteFillObject}>
