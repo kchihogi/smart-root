@@ -70,7 +70,7 @@ export default function GoogleMapViewer({
       </MapView>
       <View style={{position: 'absolute', right: '2%', bottom: '1%'}}>
         <CrossHairButton
-          icon={followUser ? 'crosshairs-gps' : 'crosshairs'}
+          followUser={followUser}
           onPress={onPressCrossHairButton}
         />
       </View>

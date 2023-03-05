@@ -4,14 +4,23 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 /**
  * CrossHairButton
- * @param {string} icon icon name.
+ * @param {bool} followUser follow user flag.
  * @param {func} onPress function when the button pressed.
  * @return {Pressable} CrossHairButton.
  */
-export default function CrossHairButton({icon, onPress}) {
+export default function CrossHairButton({followUser, onPress}) {
+  let icon = 'crosshairs';
+  let iconColor = 'black';
+  if (followUser) {
+    icon = 'crosshairs';
+    iconColor = 'black';
+  } else {
+    icon = 'crosshairs-gps';
+    iconColor = 'blue';
+  }
   return (
     <Pressable style={styles.button} onPress={onPress}>
-      <MaterialCommunityIcons name={icon} size={24} color="black" />
+      <MaterialCommunityIcons name={icon} size={24} color={iconColor} />
     </Pressable>
   );
 }
@@ -30,6 +39,6 @@ const styles = StyleSheet.create({
 });
 
 CrossHairButton.propTypes = {
-  icon: PropTypes.string.isRequired,
+  followUser: PropTypes.bool.isRequired,
   onPress: PropTypes.func.isRequired,
 };
