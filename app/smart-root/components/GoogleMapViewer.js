@@ -9,14 +9,29 @@ import MapView, {
 import MapViewDirections from 'react-native-maps-directions';
 
 import CrossHairButton from './CrossHairButton';
+import InputBar from './InputBar';
 
 /**
  * GoogleMapViewer
- * @param {LocationObject} location LocationObject.
+ * @param {text} inputVal input bar text
+ * @param {func} setInputVal set input bar text
+ * @param {text} inputUnit input bar text
+ * @param {func} setInputUnit set input bar unit
+ * @param {array} coordinates coordinates of root
+ * @param {func} setUserLocation set user location
+ * @param {func} setRootResult set result of Direction API
+ * @param {func} onInputFocus function when the InputBar focused.userLocation
  * @return {View} Google Map.
  */
 export default function GoogleMapViewer({
-  location}) {
+  inputVal,
+  setInputVal,
+  inputUnit,
+  setInputUnit,
+  coordinates,
+  setUserLocation,
+  setRootResult,
+  onInputFocus}) {
   const mapRef = useRef();
   const [region, setRegion] = useState({
     latitude: 35.689521,
@@ -25,15 +40,6 @@ export default function GoogleMapViewer({
     longitudeDelta: 0.0260,
   });
   const [followUser, setFollowUser] = useState(true);
-
-  const [coordinates, setCoordinates] = useState([
-    {latitude: 35.71972830204258, longitude: 139.3949006976562},
-    {latitude: 35.72124244805374, longitude: 139.3969839350085},
-    {latitude: 35.72199229601006, longitude: 139.3931971193054},
-    {latitude: 35.72236721734171, longitude: 139.3899952588736},
-    {latitude: 35.71945419466930, longitude: 139.3831424439336},
-    {latitude: 35.71972830204258, longitude: 139.3949006976562},
-  ]);
 
   const MAP_API_KEY = Platform.OS === 'android' ?
    Constants.manifest.android.config.googleMaps.apiKey :
@@ -54,8 +60,9 @@ export default function GoogleMapViewer({
   };
 
   const onUserLocationChange = (event) => {
+    const newRegion = event.nativeEvent.coordinate;
+    setUserLocation(newRegion);
     if (followUser) {
-      const newRegion = event.nativeEvent.coordinate;
       setRegion((region) => ({
         ...region,
         latitude: newRegion.latitude,
@@ -74,9 +81,7 @@ export default function GoogleMapViewer({
   };
 
   const onMapDirReady = (result) => {
-    console.log(`Distance: ${result.distance} km`);
-    console.log(`Duration: ${result.duration} min.`);
-
+    setRootResult(result);
     mapRef.current.fitToCoordinates(
         result.coordinates,
         {animated: true},
@@ -92,7 +97,7 @@ export default function GoogleMapViewer({
         userInterfaceStyle='light'
         showsUserLocation={true}
         showsMyLocationButton={false}
-        showsCompass={true}
+        showsCompass={false}
         onRegionChange={onRegionChange}
         onUserLocationChange={onUserLocationChange}
         onPanDrag={onPanDrag}
@@ -115,6 +120,15 @@ export default function GoogleMapViewer({
           />
         )}
       </MapView>
+      <View style={styles.inputContainer}>
+        <InputBar
+          text={inputVal}
+          onChangeText={setInputVal}
+          unit={inputUnit}
+          onUnitChange={setInputUnit}
+          onFocus={onInputFocus}
+        />
+      </View>
       <View style={{position: 'absolute', right: '2%', bottom: '1%'}}>
         <CrossHairButton
           followUser={followUser}
@@ -130,8 +144,19 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  inputContainer: {
+    width: '100%',
+    position: 'absolute',
+  },
 });
 
 GoogleMapViewer.propTypes = {
-  location: PropTypes.object,
+  inputVal: PropTypes.string,
+  setInputVal: PropTypes.func,
+  inputUnit: PropTypes.string,
+  setInputUnit: PropTypes.func,
+  coordinates: PropTypes.array,
+  setUserLocation: PropTypes.func,
+  setRootResult: PropTypes.func,
+  onInputFocus: PropTypes.func,
 };

@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 
 import Footer from './components/Footer';
-import InputBar from './components/InputBar';
 import GoogleMapViewer from './components/GoogleMapViewer';
 
 /**
@@ -21,15 +20,12 @@ import GoogleMapViewer from './components/GoogleMapViewer';
  * @return {View} The main screen of the app.
  */
 export default function App() {
+  const [showFooter, setShowFooter] = useState(true);
+  const [userLocation, setUserLocation] = useState(true);
+  const [coordinates, setCoordinates] = useState([]);
+  const [rootResult, setRootResult] = useState();
   const [text, setText] = useState('');
   const [unit, setUnit] = useState('km');
-  const [showFooter, setShowFooter] = useState(true);
-  const [location, setLocation] = useState(null);
-  const watchConfig = {
-    accuracy: Location.Accuracy.High,
-    distanceInterval: 2,
-    timeInterval: 3000,
-  };
 
   useEffect(() => {
     (async () => {
@@ -39,13 +35,6 @@ export default function App() {
         setLocation(null);
         return;
       }
-
-      await Location.watchPositionAsync(
-          watchConfig,
-          (loc) => {
-            setLocation(loc);
-          },
-      );
     })();
   }, []);
 
@@ -58,24 +47,68 @@ export default function App() {
     setShowFooter(false);
   };
 
+  const onRefreshPress = () => {
+    console.log('onRefreshPress');
+    console.log(`inputVal: ${text}`);
+    console.log(`inputUnit: ${unit}`);
+    console.log(userLocation);
+    setCoordinates(
+        [
+          {latitude: userLocation.latitude, longitude: userLocation.longitude},
+          {
+            latitude: (userLocation.latitude + 0.001),
+            longitude: (userLocation.longitude + 0.001),
+          },
+          {
+            latitude: (userLocation.latitude - 0.001),
+            longitude: (userLocation.longitude + 0.001),
+          },
+          {
+            latitude: (userLocation.latitude + 0.001),
+            longitude: (userLocation.longitude - 0.001),
+          },
+          {
+            latitude: (userLocation.latitude - 0.001),
+            longitude: (userLocation.longitude - 0.001),
+          },
+          {latitude: userLocation.latitude, longitude: userLocation.longitude},
+        ],
+    );
+  };
+
+  const onSavePress = () => {
+    console.log('onSavePress');
+    console.log(coordinates);
+    console.log(`Distance: ${rootResult.distance} km`);
+    console.log(`Duration: ${rootResult.duration} min.`);
+    console.log(rootResult);
+  };
+
+  const onSettingsPress = () => {
+  };
+
   return (
     <TouchableWithoutFeedback onPress={onReset}>
       <SafeAreaView style={styles.container}>
-        <View style={styles.inputContainer}>
-          <InputBar
-            text={text}
-            onChangeText={setText}
-            unit={unit}
-            onUnitChange={setUnit}
-            onFocus={disableFooter}
-          />
-        </View>
         <View style={styles.mapContainer}>
-          <GoogleMapViewer location={location}/>
+          <GoogleMapViewer
+            inputVal={text}
+            setInputVal={setText}
+            inputUnit={unit}
+            setInputUnit={setUnit}
+            coordinates={coordinates}
+            setUserLocation={setUserLocation}
+            setRootResult={setRootResult}
+            onInputFocus={disableFooter}
+          />
         </View>
         {showFooter ? (
           <View style={styles.footerContainer}>
-            <Footer/>
+            <Footer
+              onRefreshPress={onRefreshPress}
+              onSavePress={onSavePress}
+              onSettingsPress={onSettingsPress}
+            />
           </View>
         ) : (
           <View/>
@@ -94,14 +127,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
   },
-  inputContainer: {
-    width: Dimensions.get('window').width,
-    zIndex: 1,
-    position: 'absolute',
-    top: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
-  },
   mapContainer: {
-    flex: 10,
+    flex: 9,
     width: Dimensions.get('window').width,
     backgroundColor: '#FAA030',
   },
