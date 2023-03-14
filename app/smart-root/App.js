@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import * as Linking from 'expo-linking';
 import * as Location from 'expo-location';
 import {StatusBar} from 'expo-status-bar';
 import {useState, useEffect} from 'react';
@@ -32,7 +33,7 @@ export default function App() {
       const {status} = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
-        setLocation(null);
+        setUserLocation(null);
         return;
       }
     })();
@@ -78,13 +79,40 @@ export default function App() {
 
   const onSavePress = () => {
     console.log('onSavePress');
-    console.log(coordinates);
-    console.log(`Distance: ${rootResult.distance} km`);
-    console.log(`Duration: ${rootResult.duration} min.`);
-    console.log(rootResult);
+    if (null != rootResult) {
+    }
   };
 
   const onSettingsPress = () => {
+  };
+
+  const onOpenMapPress = () => {
+    console.log('onOpenMapPress');
+    if (null != rootResult) {
+      // console.log(coordinates);
+      console.log(`Distance: ${rootResult.distance} km`);
+      console.log(`Duration: ${rootResult.duration} min.`);
+      if (coordinates.length >= 2) {
+        let url = `https://www.google.com/maps/dir/?api=1`;
+        url += `&origin=${coordinates[0].latitude}`;
+        url += `%2C${coordinates[0].longitude}`;
+        let waypoints='';
+        for (let i = 0; i < rootResult.waypointOrder[0].length; i++) {
+          waypoints += `${coordinates.slice(1, -1)[
+              rootResult.waypointOrder[0][i]
+          ].latitude}`;
+          waypoints += `%2C${ coordinates.slice(1, -1)[
+              rootResult.waypointOrder[0][i]
+          ].longitude}|`;
+        }
+        waypoints=waypoints.substring(0, waypoints.length-1);
+        url += `&waypoints=${waypoints}`;
+        url += `&destination=${coordinates[coordinates.length-1].latitude}`;
+        url += `%2C${coordinates[coordinates.length-1].longitude}`;
+        console.log(url);
+        Linking.openURL(url);
+      }
+    }
   };
 
   return (
@@ -108,6 +136,7 @@ export default function App() {
               onRefreshPress={onRefreshPress}
               onSavePress={onSavePress}
               onSettingsPress={onSettingsPress}
+              onOpenMapPress={onOpenMapPress}
             />
           </View>
         ) : (

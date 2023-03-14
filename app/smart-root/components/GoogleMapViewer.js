@@ -77,7 +77,6 @@ export default function GoogleMapViewer({
   };
 
   const onMapDirStart = (params) => {
-    console.log(`Started routing between "${params.origin}"and "${params.destination}"`);
   };
 
   const onMapDirReady = (result) => {
