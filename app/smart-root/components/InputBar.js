@@ -39,10 +39,10 @@ export default function InputBar({
         selectedValue={unit}
         onValueChange={onUnitChange}
       >
-        <Picker.Item label="km" value="km" />
+        <Picker.Item label="分間" value="minutes" />
+        <Picker.Item label="時間" value="hours" />
         <Picker.Item label="m" value="m" />
-        <Picker.Item label="分" value="minutes" />
-        <Picker.Item label="時" value="hours" />
+        <Picker.Item label="km" value="km" />
       </Picker>
     </View>
   );
@@ -59,14 +59,14 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   input: {
-    flex: 8,
+    flex: 2,
     textAlign: 'center',
     marginLeft: 5,
     marginRight: 2,
   },
   picker: {
-    flex: 3,
-    textAlign: 'center',
+    flex: 1,
+    textAlign: 'left',
     marginRight: 5,
   },
 });

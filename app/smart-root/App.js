@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
+import Toast from 'react-native-toast-notifications';
 
 import Footer from './components/Footer';
 import GoogleMapViewer from './components/GoogleMapViewer';
@@ -28,7 +29,7 @@ export default function App() {
   const [coordinates, setCoordinates] = useState([]);
   const [rootResult, setRootResult] = useState();
   const [text, setText] = useState('');
-  const [unit, setUnit] = useState('km');
+  const [unit, setUnit] = useState('minutes');
 
   useEffect(() => {
     (async () => {
@@ -60,24 +61,52 @@ export default function App() {
     LOG.debug(`inputVal: ${text}`);
     LOG.debug(`inputUnit: ${unit}`);
     LOG.debug(userLocation);
-    let num = parseInt(text);
+    const num = parseFloat(text);
     if (isNaN(num)) {
       LOG.warn(`failed to parse ${text}`);
-      num = 1;
+      toast.show('時間や距離を入力してください。', {
+        type: 'warning',
+        duration: 3000,
+      });
+      return;
     }
-    num = num/7;
-    let maxDistance = 0;
+
+    let timeInMinute = 0;
+    let distanceInMeter = 0;
     if (unit == 'km' || unit == 'm') {
       if (unit == 'km') {
-        maxDistance = num * 1000;
+        distanceInMeter = num * 1000;
+      } else {
+        distanceInMeter = num;
+      }
+      if ((distanceInMeter < 500) | (distanceInMeter > 300 * 1000)) {
+        LOG.warn(`distanceInMeter within valid range. ${distanceInMeter}`);
+        toast.show('500m-300kmの範囲で指定してください。', {
+          type: 'warning',
+          duration: 3000,
+        });
+        return;
       }
     } else {
-      let time = num;
       if (unit == 'hours') {
-        time = num * 60;
+        timeInMinute = num * 60;
+      } else {
+        timeInMinute = num;
       }
-      maxDistance = time * 80;
+      if ((timeInMinute < 10) | (timeInMinute > 60 * 12)) {
+        LOG.warn(`timeInMinute within valid range. ${timeInMinute}`);
+        toast.show('10分-12時間の範囲で指定してください。', {
+          type: 'warning',
+          duration: 3000,
+        });
+        return;
+      }
+      distanceInMeter = timeInMinute * 80;
     }
+    LOG.debug(`distanceInMeter:${distanceInMeter}`);
+    const maxDistance = distanceInMeter/7;
+    LOG.debug(`maxDistance:${maxDistance}`);
+
     lanLonList.push({
       latitude: userLocation.latitude,
       longitude: userLocation.longitude,
@@ -170,7 +199,8 @@ export default function App() {
         ) : (
           <View/>
         )}
-        <StatusBar style="light" />
+        <StatusBar style='light' />
+        <Toast swipeEnabled={true} ref={(ref) => global['toast'] = ref} />
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
