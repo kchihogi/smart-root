@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "k_chihogi",
     "name": "smart-root",
     "slug": "smart-root",
     "version": "1.0.0",
@@ -21,6 +22,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.kchihogi.smartroot",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -28,6 +31,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1b78ab5b-7b20-4758-b224-793e2489ac54"
+      }
     }
   }
 }
