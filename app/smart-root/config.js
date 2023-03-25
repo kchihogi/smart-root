@@ -1,13 +1,14 @@
 import {
   logger,
   consoleTransport,
-  fileAsyncTransport,
+  // fileAsyncTransport,
 } from 'react-native-logs';
-import * as FileSystem from 'expo-file-system';
+// import * as FileSystem from 'expo-file-system';
 
 const config = {
-  transport: (process.env.NODE_ENV == 'development') ?
-   consoleTransport : fileAsyncTransport,
+  transport: consoleTransport,
+  // transport: (process.env.NODE_ENV == 'development') ?
+  //  consoleTransport : fileAsyncTransport,
   severity: (process.env.NODE_ENV == 'development') ?
    'debug' : 'info',
   transportOptions: {
@@ -16,8 +17,8 @@ const config = {
       warn: 'yellowBright',
       error: 'redBright',
     },
-    FS: FileSystem,
-    fileName: `logs_{date-today}`,
+    // FS: FileSystem,
+    // fileName: `logs_{date-today}`,
   },
 };
 
