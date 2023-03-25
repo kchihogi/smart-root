@@ -13,6 +13,7 @@ import {
  * @param {string} unit User input unit.
  * @param {func} onUnitChange function called when the unit changed.
  * @param {func} onFocus function called when focused.
+ * @param {func} onEndEdit function called when end edit.
  * @return {View} The input bar for user.
  */
 export default function InputBar({
@@ -20,7 +21,8 @@ export default function InputBar({
   onChangeText,
   unit,
   onUnitChange,
-  onFocus}) {
+  onFocus,
+  onEndEdit}) {
   return (
     <View style={styles.box}>
       <TextInput
@@ -30,6 +32,7 @@ export default function InputBar({
         placeholder="時間や距離を入力してください"
         keyboardType="numeric"
         onFocus={onFocus}
+        onEndEditing={onEndEdit}
       />
       <Picker
         style={styles.picker}
@@ -74,4 +77,5 @@ InputBar.propTypes = {
   unit: PropTypes.string.isRequired,
   onUnitChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
+  onEndEdit: PropTypes.func,
 };

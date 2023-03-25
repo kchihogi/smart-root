@@ -10,7 +10,7 @@ import MapViewDirections from 'react-native-maps-directions';
 
 import CrossHairButton from './CrossHairButton';
 import InputBar from './InputBar';
-import {LOG} from '../config';
+// import {LOG} from '../config';
 
 /**
  * GoogleMapViewer
@@ -22,6 +22,7 @@ import {LOG} from '../config';
  * @param {func} setUserLocation set user location
  * @param {func} setRootResult set result of Direction API
  * @param {func} onInputFocus function when the InputBar focused.userLocation
+ * @param {func} onInputEndEdit function when the InputBar finished.
  * @return {View} Google Map.
  */
 export default function GoogleMapViewer({
@@ -32,7 +33,8 @@ export default function GoogleMapViewer({
   coordinates,
   setUserLocation,
   setRootResult,
-  onInputFocus}) {
+  onInputFocus,
+  onInputEndEdit}) {
   const mapRef = useRef();
   const [region, setRegion] = useState({
     latitude: 35.689521,
@@ -44,13 +46,13 @@ export default function GoogleMapViewer({
 
   let MAP_API_KEY = '';
   if (Platform.OS === 'android') {
-    LOG.debug('android');
+    // LOG.debug('android');
     MAP_API_KEY = Constants.manifest.extra.googleMaps.android.apiKey;
   } else {
-    LOG.debug('ios');
+    // LOG.debug('ios');
     MAP_API_KEY = Constants.manifest.extra.googleMaps.ios.apiKey;
   };
-  LOG.debug(MAP_API_KEY);
+  // LOG.debug(MAP_API_KEY);
 
   const onRegionChange = (region) => {
     const lat = region.latitudeDelta;
@@ -133,6 +135,7 @@ export default function GoogleMapViewer({
           unit={inputUnit}
           onUnitChange={setInputUnit}
           onFocus={onInputFocus}
+          onEndEdit={onInputEndEdit}
         />
       </View>
       <View style={{position: 'absolute', right: '2%', bottom: '1%'}}>
@@ -165,4 +168,5 @@ GoogleMapViewer.propTypes = {
   setUserLocation: PropTypes.func,
   setRootResult: PropTypes.func,
   onInputFocus: PropTypes.func,
+  onInputEndEdit: PropTypes.func,
 };

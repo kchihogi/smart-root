@@ -154,6 +154,7 @@ export default function App() {
             setUserLocation={setUserLocation}
             setRootResult={setRootResult}
             onInputFocus={disableFooter}
+            onInputEndEdit={onReset}
           />
         </View>
         {showFooter ? (
