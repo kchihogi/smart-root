@@ -10,7 +10,7 @@ const config = {
   // transport: (process.env.NODE_ENV == 'development') ?
   //  consoleTransport : fileAsyncTransport,
   severity: (process.env.NODE_ENV == 'development') ?
-   'debug' : 'info',
+   'debug' : 'debug',
   transportOptions: {
     colors: {
       info: 'blueBright',
