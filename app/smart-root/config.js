@@ -6,9 +6,10 @@ import {
 import * as FileSystem from 'expo-file-system';
 
 const config = {
-  transport: consoleTransport,
-  transport: (process.env.NODE_ENV == 'development') ?
-   consoleTransport : fileAsyncTransport,
+  transport: [
+    consoleTransport,
+    fileAsyncTransport,
+  ],
   severity: (process.env.NODE_ENV == 'development') ?
    'debug' : 'debug',
   transportOptions: {
