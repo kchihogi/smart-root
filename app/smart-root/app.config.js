@@ -1,5 +1,4 @@
 require('dotenv').config({path: '../../.env'});
-import {LOG} from './config';
 
 module.exports = ({config}) => {
   const androidKey = process.env.GOOGLE_MAP_API_KEY_ANDROID;
@@ -8,9 +7,9 @@ module.exports = ({config}) => {
     android: {apiKey: androidKey},
     ios: {apiKey: iosKey},
   };
-  LOG.debug('---config---');
-  LOG.debug(config);
-  LOG.debug('---config---');
+  console.log('---config---');
+  console.log(config);
+  console.log('---config---');
   return {
     ...config,
   };
