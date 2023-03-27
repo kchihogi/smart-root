@@ -9,9 +9,9 @@ module.exports = ({config}) => {
   };
   config.android.config.googleMaps.apiKey = androidKey;
   config.ios.config.googleMapsApiKey = androidKey;
-  console.log('---config---');
-  console.log(config);
-  console.log('---config---');
+  // console.log('---config---');
+  // console.log(config);
+  // console.log('---config---');
   return {
     ...config,
   };
