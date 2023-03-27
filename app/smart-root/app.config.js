@@ -7,6 +7,8 @@ module.exports = ({config}) => {
     android: {apiKey: androidKey},
     ios: {apiKey: iosKey},
   };
+  config.android.config.googleMaps.apiKey = androidKey;
+  config.ios.config.googleMapsApiKey = androidKey;
   console.log('---config---');
   console.log(config);
   console.log('---config---');

@@ -19,7 +19,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {"googleMapsApiKey": "ios_google_map_api_key"}
     },
     "android": {
       "package": "com.kchihogi.smartroot",
@@ -27,7 +28,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "config": {"googleMaps": {"apiKey": "android_google_map_api_key"}}
     },
     "web": {
       "favicon": "./assets/favicon.png"
