@@ -20,6 +20,7 @@ const config = {
     },
     FS: FileSystem,
     fileName: `logs_{date-today}`,
+    filePath: FileSystem.documentDirectory,
   },
 };
 
