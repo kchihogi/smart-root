@@ -139,6 +139,7 @@ export default function App() {
   };
 
   const onSettingsPress = () => {
+    LOG.info('onSettingsPress');
   };
 
   const onOpenMapPress = () => {

@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 
 import IconButton from './IconButton';
+import DebugButton from './DebugButton';
 
 /**
  * Footer
@@ -54,6 +55,7 @@ export default function Footer(
         label="Settings"
         onPress={onSettingsPress}
       /> */}
+      <DebugButton/>
     </View>
   );
 }
