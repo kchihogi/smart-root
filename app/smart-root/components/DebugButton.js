@@ -2,6 +2,7 @@ import * as FileSystem from 'expo-file-system';
 // import PropTypes from 'prop-types';
 // import {StyleSheet} from 'react-native';
 import IconButton from './IconButton';
+import {LOG} from '../config';
 
 /**
  * App
