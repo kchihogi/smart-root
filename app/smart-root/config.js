@@ -19,7 +19,7 @@ const config = {
       error: 'redBright',
     },
     FS: FileSystem,
-    fileName: `logs_{date-today}`,
+    fileName: `logs_{date-today}.log`,
     filePath: FileSystem.documentDirectory,
   },
 };
