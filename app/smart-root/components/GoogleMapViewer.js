@@ -5,7 +5,6 @@ import {Platform, StyleSheet, View} from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
-import {LOG} from '../config';
 import CrossHairButton from './CrossHairButton';
 import InputBar from './InputBar';
 /**
@@ -87,14 +86,6 @@ export default function GoogleMapViewer({
         result.coordinates,
         {animated: true},
     );
-    let message = `距離は${result.distance.toFixed(1)}km。\r\n`;
-    message += `時間は${Math.round(result.duration)}分間のルートが見つかりました。`;
-    toast.show(message, {
-      type: 'normal',
-      duration: 5000,
-    });
-    LOG.info(`Distance: ${result.distance} km.`);
-    LOG.info(`Duration: ${result.duration} min.`);
   };
 
   return (

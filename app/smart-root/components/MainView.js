@@ -27,6 +27,35 @@ export default function MainView() {
   const [unit, setUnit] = useState('minutes');
 
   useEffect(() => {
+    if (null != rootResult) {
+      let distMeg = '';
+      let unitDistMsg = '';
+      if (rootResult.distance < 1) {
+        distMeg = (rootResult.distance * 1000).toFixed(0);
+        unitDistMsg = 'm';
+      } else {
+        distMeg = (rootResult.distance).toFixed(1);
+        unitDistMsg = 'km';
+      }
+      let timeMeg = '';
+      let unitTimeMsg = '';
+      if (rootResult.duration >= 60) {
+        timeMeg = (rootResult.duration/60).toFixed(1);
+        unitTimeMsg = '時間';
+      } else {
+        timeMeg = (rootResult.duration).toFixed(0);
+        unitTimeMsg = '分間';
+      }
+
+      let message = `ルートが見つかりました。\r\n`;
+      message += `距離は${distMeg}${unitDistMsg}。時間は${timeMeg}${unitTimeMsg}。`;
+      toast.show(message, {
+        type: 'normal',
+        duration: 5000,
+      });
+      LOG.info(`Distance: ${rootResult.distance} km.`);
+      LOG.info(`Duration: ${rootResult.duration} min.`);
+    }
     (async () => {
       const {status} = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -35,7 +64,7 @@ export default function MainView() {
         return;
       }
     })();
-  }, []);
+  }, [rootResult]);
 
   const onReset = () => {
     Keyboard.dismiss();
