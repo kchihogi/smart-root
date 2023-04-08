@@ -124,10 +124,6 @@ export default function MainView() {
 
   const onSavePress = () => {
     LOG.info('onSavePress');
-    if (null != rootResult) {
-      LOG.info(`Distance: ${rootResult.distance} km`);
-      LOG.info(`Duration: ${rootResult.duration} min.`);
-    }
   };
 
   const onSettingsPress = () => {
@@ -138,8 +134,6 @@ export default function MainView() {
     LOG.info('onOpenMapPress');
     if (null != rootResult) {
       LOG.debug(coordinates);
-      LOG.info(`Distance: ${rootResult.distance} km`);
-      LOG.info(`Duration: ${rootResult.duration} min.`);
       if (coordinates.length >= 2) {
         let url = `https://www.google.com/maps/dir/?api=1`;
         url += `&origin=${coordinates[0].latitude}`;
@@ -160,6 +154,11 @@ export default function MainView() {
         LOG.debug(url);
         Linking.openURL(url);
       }
+    } else {
+      toast.show('Route meボタンを押してルートを表示してください。', {
+        type: 'warning',
+        duration: 3000,
+      });
     }
   };
 

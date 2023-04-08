@@ -1,17 +1,13 @@
-
 import Constants from 'expo-constants';
 import PropTypes from 'prop-types';
-import React, {useState, useRef} from 'react';
-import {StyleSheet, View, Platform} from 'react-native';
-import MapView, {
-  PROVIDER_GOOGLE,
-} from 'react-native-maps';
+import React, {useRef, useState} from 'react';
+import {Platform, StyleSheet, View} from 'react-native';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
+import {LOG} from '../config';
 import CrossHairButton from './CrossHairButton';
 import InputBar from './InputBar';
-// import {LOG} from '../config';
-
 /**
  * GoogleMapViewer
  * @param {text} inputVal input bar text
@@ -46,13 +42,10 @@ export default function GoogleMapViewer({
 
   let MAP_API_KEY = '';
   if (Platform.OS === 'android') {
-    // LOG.debug('android');
     MAP_API_KEY = Constants.manifest.extra.googleMaps.android.apiKey;
   } else {
-    // LOG.debug('ios');
     MAP_API_KEY = Constants.manifest.extra.googleMaps.ios.apiKey;
   };
-  // LOG.debug(MAP_API_KEY);
 
   const onRegionChange = (region) => {
     const lat = region.latitudeDelta;
@@ -94,6 +87,14 @@ export default function GoogleMapViewer({
         result.coordinates,
         {animated: true},
     );
+    let message = `距離は${result.distance.toFixed(1)}km。\r\n`;
+    message += `時間は${Math.round(result.duration)}分間のルートが見つかりました。`;
+    toast.show(message, {
+      type: 'normal',
+      duration: 5000,
+    });
+    LOG.info(`Distance: ${result.distance} km.`);
+    LOG.info(`Duration: ${result.duration} min.`);
   };
 
   return (

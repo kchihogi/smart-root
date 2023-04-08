@@ -22,10 +22,10 @@ export default function App() {
       <View>
         {showMainScreen ? (
           <View>
-            <Button
+            {/* <Button
               title="Go to Screen 2"
               onPress={() => setShowMainScreen(false)}
-            />
+            /> */}
             <MainView/>
           </View>
         ) : (
