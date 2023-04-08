@@ -1,4 +1,4 @@
-import Constants from 'expo-constants';
+// import Constants from 'expo-constants';
 import React, {useState} from 'react';
 import {Button,
   SafeAreaView,
@@ -19,8 +19,8 @@ export default function App() {
   const [showMainScreen, setShowMainScreen] = useState(true);
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        {showMainScreen ? (
+      <StatusBar style="dark" backgroundColor="#000000" />
+      {showMainScreen ? (
           <View>
             {/* <Button
               title="Go to Screen 2"
@@ -28,17 +28,15 @@ export default function App() {
             /> */}
             <MainView/>
           </View>
-        ) : (
-          <View>
-            <Text>Screen 2</Text>
-            <Button
-              title="Go to Screen 1"
-              onPress={() => setShowMainScreen(true)}
-            />
-          </View>
-        )}
-      </View>
-      <StatusBar style='light' />
+      ) : (
+        <View>
+          <Text>Screen 2</Text>
+          <Button
+            title="Go to Screen 1"
+            onPress={() => setShowMainScreen(true)}
+          />
+        </View>
+      )}
       <Toast swipeEnabled={true} ref={(ref) => global['toast'] = ref} />
     </SafeAreaView>
   );
@@ -47,9 +45,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#000000',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
+    // paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
   },
 });
