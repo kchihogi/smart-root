@@ -1,5 +1,6 @@
 import * as Linking from 'expo-linking';
 import * as Location from 'expo-location';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import {
   Dimensions,
@@ -12,6 +13,7 @@ import {
 import {LOG} from '../config';
 import Footer from './Footer';
 import GoogleMapViewer from './GoogleMapViewer';
+import SettingsModal from './SettingsModal';
 
 /**
  * MainView
@@ -25,6 +27,8 @@ export default function MainView() {
   const [rootResult, setRootResult] = useState();
   const [text, setText] = useState('');
   const [unit, setUnit] = useState('minutes');
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [walkSpeed, setWalkSpeed] = useState(80);
 
   useEffect(() => {
     if (null != rootResult) {
@@ -57,6 +61,12 @@ export default function MainView() {
       LOG.info(`Duration: ${rootResult.duration} min.`);
     }
     (async () => {
+      const savedWalkSpeed = await AsyncStorage.getItem('walkSpeed');
+      if (savedWalkSpeed) {
+        setWalkSpeed(parseInt(savedWalkSpeed));
+      }
+    })();
+    (async () => {
       const {status} = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         LOG.error('Permission to access location was denied');
@@ -75,11 +85,16 @@ export default function MainView() {
     setShowFooter(false);
   };
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   const onRefreshPress = () => {
     LOG.info('onRefreshPress');
-    const walkSpeedInMinutePerMeter = 80;
+    const walkSpeedInMinutePerMeter = walkSpeed;
     const points = 8;
     const lanLonList = [];
+    LOG.debug(`walkSpeedInMinutePerMeter: ${walkSpeedInMinutePerMeter}`);
     LOG.debug(`inputVal: ${text}`);
     LOG.debug(`inputUnit: ${unit}`);
     LOG.debug(userLocation);
@@ -157,6 +172,7 @@ export default function MainView() {
 
   const onSettingsPress = () => {
     LOG.info('onSettingsPress');
+    toggleModal();
   };
 
   const onOpenMapPress = () => {
@@ -194,6 +210,12 @@ export default function MainView() {
   return (
     <TouchableWithoutFeedback onPress={onReset}>
       <View style={styles.container}>
+        <SettingsModal
+          isVisible={isModalVisible}
+          onClose={toggleModal}
+          walkSpeed={walkSpeed}
+          onWalkSpeedChange={setWalkSpeed}
+        />
         <View style={styles.mapContainer}>
           <GoogleMapViewer
             inputVal={text}

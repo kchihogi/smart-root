@@ -49,11 +49,11 @@ export default function Footer(
         label="Open map"
         onPress={onOpenMapPress}
       />
-      {/* <IconButton
+      <IconButton
         icon="settings"
         label="Settings"
         onPress={onSettingsPress}
-      /> */}
+      />
     </View>
   );
 }
