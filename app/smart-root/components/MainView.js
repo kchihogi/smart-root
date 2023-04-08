@@ -48,7 +48,8 @@ export default function MainView() {
 
   const onRefreshPress = () => {
     LOG.info('onRefreshPress');
-    let count = 6;
+    const walkSpeedInMinutePerMeter = 80;
+    const points = 8;
     const lanLonList = [];
     LOG.debug(`inputVal: ${text}`);
     LOG.debug(`inputUnit: ${unit}`);
@@ -93,10 +94,12 @@ export default function MainView() {
         });
         return;
       }
-      distanceInMeter = timeInMinute * 80;
+      distanceInMeter = timeInMinute * walkSpeedInMinutePerMeter;
     }
+
     LOG.debug(`distanceInMeter:${distanceInMeter}`);
-    const maxDistance = distanceInMeter/7;
+    const lengthOfSide = distanceInMeter/(points -1);
+    const maxDistance = lengthOfSide/(2*Math.sin(Math.PI/(points -1)));
     LOG.debug(`maxDistance:${maxDistance}`);
 
     lanLonList.push({
@@ -104,7 +107,7 @@ export default function MainView() {
       longitude: userLocation.longitude,
     });
     const maxDistanceDegrees = maxDistance / 111319;
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < (points-2); i++) {
       const r = maxDistanceDegrees * Math.sqrt(Math.random());
       const theta = Math.random() * 2.0 * Math.PI;
       const lat = userLocation.latitude + (r * Math.cos(theta));
@@ -115,11 +118,8 @@ export default function MainView() {
       latitude: userLocation.latitude,
       longitude: userLocation.longitude,
     });
-    count += 2;
-    if (lanLonList.length == 8) {
-      setCoordinates(lanLonList);
-      setShowRoute(true);
-    }
+    setCoordinates(lanLonList);
+    setShowRoute(true);
   };
 
   const onSavePress = () => {
