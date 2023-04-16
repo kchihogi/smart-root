@@ -3,6 +3,7 @@ import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import {
+  BackHandler,
   Dimensions,
   Keyboard,
   StyleSheet,
@@ -74,7 +75,21 @@ export default function MainView() {
         return;
       }
     })();
-  }, [rootResult]);
+
+    const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => {
+          if (isModalVisible) {
+            setModalVisible(false);
+            return true;
+          }
+          return false;
+        },
+    );
+    return () => BackHandler.removeEventListener(
+        'hardwareBackPress', backHandler,
+    );
+  }, [rootResult, isModalVisible]);
 
   const onReset = () => {
     Keyboard.dismiss();
@@ -85,8 +100,12 @@ export default function MainView() {
     setShowFooter(false);
   };
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+  const handleModalOpen = () => {
+    setModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
   };
 
   const onRefreshPress = () => {
@@ -172,7 +191,7 @@ export default function MainView() {
 
   const onSettingsPress = () => {
     LOG.info('onSettingsPress');
-    toggleModal();
+    handleModalOpen();
   };
 
   const onOpenMapPress = () => {
@@ -212,9 +231,10 @@ export default function MainView() {
       <View style={styles.container}>
         <SettingsModal
           isVisible={isModalVisible}
-          onClose={toggleModal}
+          onClose={handleModalClose}
           walkSpeed={walkSpeed}
           onWalkSpeedChange={setWalkSpeed}
+          onRequestClose={handleModalClose}
         />
         <View style={styles.mapContainer}>
           <GoogleMapViewer
@@ -227,6 +247,7 @@ export default function MainView() {
             setRootResult={setRootResult}
             onInputFocus={disableFooter}
             onInputEndEdit={onReset}
+            onSettingsPress={onSettingsPress}
           />
         </View>
         {showFooter ? (
@@ -235,7 +256,6 @@ export default function MainView() {
               isRouteShown={showRoute}
               onRefreshPress={onRefreshPress}
               onSavePress={onSavePress}
-              onSettingsPress={onSettingsPress}
               onOpenMapPress={onOpenMapPress}
             />
           </View>

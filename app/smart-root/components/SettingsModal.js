@@ -43,14 +43,22 @@ SettingListItem.propTypes = {
   onValueChange: PropTypes.func.isRequired,
 };
 
-const SettingsModal = ({isVisible, onClose, walkSpeed, onWalkSpeedChange}) => {
+const SettingsModal = ({
+  isVisible,
+  onClose,
+  walkSpeed,
+  onWalkSpeedChange,
+  onRequestClose}) => {
   const handleWalkSpeedChange = async (value) => {
     onWalkSpeedChange(value);
     await AsyncStorage.setItem('walkSpeed', value.toString());
   };
 
   return (
-    <Modal animationType="slide" visible={isVisible}>
+    <Modal
+      animationType="slide"
+      visible={isVisible}
+      onRequestClose={onRequestClose}>
       <View style={styles.container}>
         <Text style={styles.title}>Settings</Text>
         <SettingListItem
@@ -74,6 +82,7 @@ SettingsModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   walkSpeed: PropTypes.number.isRequired,
   onWalkSpeedChange: PropTypes.func.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

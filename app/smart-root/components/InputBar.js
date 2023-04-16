@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 
+import NoLabelIconButton from './NoLabelIconButton';
+
 /**
  * InputBar
  * @param {string} text User input text.
@@ -14,6 +16,7 @@ import {
  * @param {func} onUnitChange function called when the unit changed.
  * @param {func} onFocus function called when focused.
  * @param {func} onEndEdit function called when end edit.
+ * @param {func} onSettingsPress function called when settings button pressed.
  * @return {View} The input bar for user.
  */
 export default function InputBar({
@@ -22,7 +25,8 @@ export default function InputBar({
   unit,
   onUnitChange,
   onFocus,
-  onEndEdit}) {
+  onEndEdit,
+  onSettingsPress}) {
   return (
     <View style={styles.box}>
       <TextInput
@@ -44,6 +48,12 @@ export default function InputBar({
         <Picker.Item label="m" value="m" />
         <Picker.Item label="km" value="km" />
       </Picker>
+      <View style={styles.button}>
+        <NoLabelIconButton
+          icon="settings"
+          onPress={onSettingsPress}
+        />
+      </View>
     </View>
   );
 }
@@ -59,14 +69,18 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   input: {
-    flex: 2,
+    flex: 8,
     textAlign: 'center',
     marginLeft: 5,
-    marginRight: 2,
   },
   picker: {
+    flex: 4,
+    textAlign: 'center',
+  },
+  button: {
     flex: 1,
-    textAlign: 'left',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 5,
   },
 });
@@ -78,4 +92,5 @@ InputBar.propTypes = {
   onUnitChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
   onEndEdit: PropTypes.func,
+  onSettingsPress: PropTypes.func,
 };

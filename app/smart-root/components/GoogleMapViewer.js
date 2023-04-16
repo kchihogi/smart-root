@@ -18,6 +18,7 @@ import InputBar from './InputBar';
  * @param {func} setRootResult set result of Direction API
  * @param {func} onInputFocus function when the InputBar focused.userLocation
  * @param {func} onInputEndEdit function when the InputBar finished.
+ * @param {func} onSettingsPress function called when settings button pressed.
  * @return {View} Google Map.
  */
 export default function GoogleMapViewer({
@@ -29,7 +30,8 @@ export default function GoogleMapViewer({
   setUserLocation,
   setRootResult,
   onInputFocus,
-  onInputEndEdit}) {
+  onInputEndEdit,
+  onSettingsPress}) {
   const mapRef = useRef();
   const [region, setRegion] = useState({
     latitude: 35.689521,
@@ -128,6 +130,7 @@ export default function GoogleMapViewer({
           onUnitChange={setInputUnit}
           onFocus={onInputFocus}
           onEndEdit={onInputEndEdit}
+          onSettingsPress={onSettingsPress}
         />
       </View>
       <View style={{position: 'absolute', right: '2%', bottom: '1%'}}>
@@ -161,4 +164,5 @@ GoogleMapViewer.propTypes = {
   setRootResult: PropTypes.func,
   onInputFocus: PropTypes.func,
   onInputEndEdit: PropTypes.func,
+  onSettingsPress: PropTypes.func,
 };
