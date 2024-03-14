@@ -1,4 +1,4 @@
-FROM node:16-alpine3.17
+FROM node:current-alpine
 
 ARG WD="/home/smart-root"
 
