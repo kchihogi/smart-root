@@ -10,6 +10,10 @@ TBD
 - ルート保存機能(お気に入り機能)
 - ユーザ設定機能
 
+## プライバシーポリシー
+
+[プライバシーポリシー](privacy .md)
+
 ## Skills
 - React Native
 - Expo
