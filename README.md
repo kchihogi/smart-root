@@ -12,7 +12,7 @@ TBD
 
 ## プライバシーポリシー
 
-[プライバシーポリシー](privacy .md)
+[privacy.md](privacy.md)
 
 ## Skills
 - React Native
