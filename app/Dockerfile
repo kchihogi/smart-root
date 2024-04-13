@@ -1,4 +1,4 @@
-FROM node:16-alpine3.17
+FROM node:current-alpine
 
 ARG WD="/home/smart-root"
 
@@ -9,5 +9,4 @@ RUN apk update && \
     apk add --upgrade grep
 
 RUN yarn global add expo-cli
-
-RUN yarn global add expo-cli
+RUN yarn global add eas-cli

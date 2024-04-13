@@ -9,20 +9,21 @@
                 "path": "/bin/bash"
             }
         },
-        "workbench.colorTheme": "Kimbie Dark",
+        "workbench.colorTheme": "@id:wesbos.theme-cobalt2",
         "editor.renderWhitespace": "all"
     },
     "extensions": [
         "visualstudioexptteam.vscodeintellicode",
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
-        "hookyqr.beautify",
         "alefragnani.bookmarks",
         "lacroixdavid1.vscode-format-context-menu",
         "eamodio.gitlens",
         "oderwat.indent-rainbow",
         "ionutvmi.path-autocomplete",
         "chrmarti.regex",
-        "humao.rest-client"
+        "humao.rest-client",
+        "GitHub.copilot"
+        
     ]
 }
