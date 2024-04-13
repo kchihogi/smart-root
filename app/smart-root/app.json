@@ -1,9 +1,9 @@
 {
   "expo": {
     "owner": "k_chihogi",
-    "name": "smart-root",
+    "name": "Smart Root",
     "slug": "smart-root",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

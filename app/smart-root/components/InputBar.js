@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 
-import NoLabelIconButton from './NoLabelIconButton';
+// import NoLabelIconButton from './NoLabelIconButton';
 
 /**
  * InputBar
@@ -48,12 +48,12 @@ export default function InputBar({
         <Picker.Item label="m" value="m" />
         <Picker.Item label="km" value="km" />
       </Picker>
-      <View style={styles.button}>
+      {/* <View style={styles.button}>
         <NoLabelIconButton
           icon="settings"
           onPress={onSettingsPress}
         />
-      </View>
+      </View> */}
     </View>
   );
 }

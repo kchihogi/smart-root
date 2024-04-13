@@ -11,7 +11,7 @@ const config = {
     fileAsyncTransport,
   ],
   severity: (process.env.NODE_ENV == 'development') ?
-   'debug' : 'debug',
+    'debug' : 'debug',
   transportOptions: {
     colors: {
       info: 'blueBright',
