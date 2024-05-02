@@ -16,6 +16,8 @@ iOS/Android向けアプリ。
 ![screen2](app/smart-root/assets/screen_2.jpg)
 ![screen3](app/smart-root/assets/screen_3.jpg)
 
+※画像はAndroid版のものです。一部、画像を加工しています。
+
 ## プライバシーポリシー
 
 [privacy.md](privacy.md)
