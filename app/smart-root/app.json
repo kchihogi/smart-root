@@ -5,10 +5,10 @@
     "slug": "smart-root",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon_B.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash_D.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -26,7 +26,7 @@
       "package": "com.kchihogi.smartroot",
       "versionCode": 2,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon_B.png",
         "backgroundColor": "#FFFFFF"
       },
       "config": {"googleMaps": {"apiKey": "android_google_map_api_key"}}
