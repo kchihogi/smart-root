@@ -3,27 +3,31 @@
     "dockerComposeFile": "../docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/home/smart-root",
-    "settings": {
-        "terminal.integrated.profiles.linux": {
-            "bash": {
-                "path": "/bin/bash"
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.profiles.linux": {
+                    "bash": {
+                        "path": "/bin/bash"
+                    }
+                },
+                "workbench.colorTheme": "Cobalt2",
+                "editor.renderWhitespace": "all"
             }
         },
-        "workbench.colorTheme": "@id:wesbos.theme-cobalt2",
-        "editor.renderWhitespace": "all"
-    },
-    "extensions": [
-        "visualstudioexptteam.vscodeintellicode",
-        "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
-        "alefragnani.bookmarks",
-        "lacroixdavid1.vscode-format-context-menu",
-        "eamodio.gitlens",
-        "oderwat.indent-rainbow",
-        "ionutvmi.path-autocomplete",
-        "chrmarti.regex",
-        "humao.rest-client",
-        "GitHub.copilot"
-        
-    ]
+        "extensions": [
+            "visualstudioexptteam.vscodeintellicode",
+            "esbenp.prettier-vscode",
+            "dbaeumer.vscode-eslint",
+            "alefragnani.bookmarks",
+            "lacroixdavid1.vscode-format-context-menu",
+            "eamodio.gitlens",
+            "oderwat.indent-rainbow",
+            "ionutvmi.path-autocomplete",
+            "chrmarti.regex",
+            "humao.rest-client",
+            "GitHub.copilot"
+            
+        ]
+    }
 }
