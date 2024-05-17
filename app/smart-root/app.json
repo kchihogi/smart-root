@@ -3,7 +3,7 @@
     "owner": "k_chihogi",
     "name": "Smart Root",
     "slug": "smart-root",
-    "version": "1.0.2",
+    "version": "2.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon_B.png",
     "userInterfaceStyle": "light",
@@ -12,24 +12,19 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "config": {"googleMapsApiKey": "ios_google_map_api_key"}
+      "supportsTablet": true
     },
     "android": {
       "package": "com.kchihogi.smartroot",
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon_B.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "config": {"googleMaps": {"apiKey": "android_google_map_api_key"}}
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
