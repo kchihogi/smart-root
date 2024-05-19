@@ -29,11 +29,13 @@ import MapViewDirections from 'react-native-maps-directions';
 
 //Internal components
 import { toConvexHullLatLngs, isInsidePolygon } from '../utils/calcHull';
+import { useTheme } from '../hooks/ThemeContext';
 
 export default function HomeScreen({ navigation }: any) {
   const toast = useToast()
   const mapRef = React.useRef();
   const mapEventIndex = React.useRef(0);
+  const { theme } = useTheme();
 
   //useState
   const [userLocation, setUserLocation] = React.useState(null);
@@ -331,7 +333,8 @@ const onUserLocationChange = (event : any) => {
                 </ToastTitle>
                 <ToastDescription color="$textLight50">
                   Your account password was recently changed.
-                  {process.env.EXPO_PUBLIC_GOOGLE_MAP_API_KEY}
+                  {process.env.EXPO_PUBLIC_GOOGLE_MAP_API_KEY}.
+                  {theme}.
                 </ToastDescription>
               </VStack>
               <Pressable mt="$1" onPress={() => toast.close(id)}>
@@ -401,7 +404,7 @@ const onUserLocationChange = (event : any) => {
             provider={PROVIDER_GOOGLE}
             initialRegion={region}
             mapType='standard'
-            userInterfaceStyle='light'
+            userInterfaceStyle={theme === 'dark' ? 'dark' : 'light'}
             showsUserLocation={true}
             showsMyLocationButton={false}
             showsCompass={false}
