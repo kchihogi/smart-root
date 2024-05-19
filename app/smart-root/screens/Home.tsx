@@ -113,29 +113,6 @@ export default function HomeScreen({ navigation }: any) {
     }
   }, [rootResult]);
 
-  //functions
-  // const onRegionChange = (region : any) => {
-  //   console.log("latitudeDelta: " + region.latitudeDelta);
-  //   console.log("longitudeDelta: " + region.longitudeDelta);
-  //   const lat = region.latitudeDelta;
-  //   const lon = region.longitudeDelta;
-  //   {() => setRegion((region) => ({
-  //     ...region,
-  //     latitudeDelta: lat,
-  //     longitudeDelta: lon,
-  //   }))};
-  // };
-  
-  // const onRegionChange = (region) => {
-  //   const lat = region.latitudeDelta;
-  //   const lon = region.longitudeDelta;
-  //   setRegion((region) => ({
-  //     ...region,
-  //     latitudeDelta: lat,
-  //     longitudeDelta: lon,
-  //   }));
-  // };
-
   const onRegionChange = React.useCallback((newRegion) => {
     if (mapEventIndex.current % 20 !== 0) {
       return;
