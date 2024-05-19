@@ -14,7 +14,7 @@ import {
   Icon,
   Input,InputField,
   Pressable,
-  Text, Toast, ToastDescription, ToastTitle,
+  Toast, ToastDescription, ToastTitle,
   VStack,
   Center,
   Select,SelectBackdrop,SelectContent,SelectDragIndicator,SelectDragIndicatorWrapper,SelectIcon,SelectInput,SelectItem,SelectPortal,SelectTrigger,
@@ -28,6 +28,7 @@ import MapView, { Marker, Polygon, Polyline, PROVIDER_GOOGLE} from 'react-native
 import MapViewDirections from 'react-native-maps-directions';
 
 //Internal components
+import { FooterButton } from '../components/FooterButton';
 import { toConvexHullLatLngs, isInsidePolygon } from '../utils/calcHull';
 import { useTheme } from '../hooks/ThemeContext';
 
@@ -477,32 +478,7 @@ const onUserLocationChange = (event : any) => {
                 bg: "$green300",
               }
             }}>
-            <Pressable onPress={() => {onPressRouteMeButton()}}>
-              <VStack space="xs" alignItems="center" justifyContent="center">
-                <Icon
-                  as={Footprints}
-                  size="xl"
-                  sx={{
-                    _dark: {
-                      color: '$light900',
-                    },
-                    _light: {
-                      color: '$light200',
-                    },
-                  }}
-                />
-                <ButtonText
-                sx={{
-                  _dark: {
-                    color: '$light900',
-                  },
-                  _light: {
-                    color: '$light200',
-                  },
-                }}
-                >Route me</ButtonText>
-              </VStack>
-            </Pressable>
+            <FooterButton title="Route me" icon={Footprints} onPress={onPressRouteMeButton} />
           </Center>
           <Center
             w="25%"
@@ -514,32 +490,7 @@ const onUserLocationChange = (event : any) => {
                 bg: "$green300",
               }
             }}>
-            <Pressable onPress={() => { onPressSaveButton() } } >
-              <VStack space="xs" alignItems="center" justifyContent="center">
-                <Icon
-                  as={Star}
-                  size="xl"
-                  sx={{
-                    _dark: {
-                      color: '$light900',
-                    },
-                    _light: {
-                      color: '$light200',
-                    },
-                  }}
-                />
-                <ButtonText
-                sx={{
-                  _dark: {
-                    color: '$light900',
-                  },
-                  _light: {
-                    color: '$light200',
-                  },
-                }}
-                >Save</ButtonText>
-              </VStack>
-            </Pressable>
+            <FooterButton title="Save" icon={Star} onPress={onPressSaveButton} />
           </Center>
           <Center
             w="25%"
@@ -551,32 +502,7 @@ const onUserLocationChange = (event : any) => {
                 bg: "$green300",
               }
             }}> 
-            <Pressable onPress={() => { onPressToolsButton() }} >
-              <VStack space="xs" alignItems="center" justifyContent="center">
-                <Icon
-                  as={PencilRuler}
-                  size="xl"
-                  sx={{
-                    _dark: {
-                      color: '$light900',
-                    },
-                    _light: {
-                      color: '$light200',
-                    },
-                  }}
-                />
-                <ButtonText
-                sx={{
-                  _dark: {
-                    color: '$light900',
-                  },
-                  _light: {
-                    color: '$light200',
-                  },
-                }}
-                >Tools</ButtonText>
-              </VStack>
-            </Pressable>
+            <FooterButton title="Tools" icon={PencilRuler} onPress={onPressToolsButton} />
           </Center>
           <Center
             w="25%"
@@ -587,33 +513,8 @@ const onUserLocationChange = (event : any) => {
               _light: {
                 bg: "$green300",
               }
-            }}> 
-            <Pressable onPress={() => { onPressOpenMapButton() }} >
-              <VStack space="xs" alignItems="center" justifyContent="center">
-                <Icon
-                  as={Map}
-                  size="xl"
-                  sx={{
-                    _dark: {
-                      color: '$light900',
-                    },
-                    _light: {
-                      color: '$light200',
-                    },
-                  }}
-                />
-                <ButtonText
-                sx={{
-                  _dark: {
-                    color: '$light900',
-                  },
-                  _light: {
-                    color: '$light200',
-                  },
-                }}
-                >Open map</ButtonText>
-              </VStack>
-            </Pressable>
+            }}>
+            <FooterButton title="Open map" icon={Map} onPress={onPressOpenMapButton} />
           </Center>
         </HStack>
       </VStack>
