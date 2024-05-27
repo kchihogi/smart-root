@@ -8,8 +8,6 @@ services:
       dockerfile: app/Dockerfile
     volumes:
       - .:/home/smart-root
-    environment:
-      - REACT_NATIVE_PACKAGER_HOSTNAME=${LOCAL_IP_ADDR}
     ports:
       - "19000:19000"
       - "19001:19001"

@@ -69,3 +69,5 @@ yarn-error.log*
 
 # Ignore Jest configuration file
 jest.config.js
+
+**/.npmrc
