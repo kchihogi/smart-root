@@ -2,6 +2,7 @@
 import * as React from "react";
 
 //Expo
+import Constants from 'expo-constants';
 import * as Location from "expo-location";
 import * as Linking from "expo-linking";
 
@@ -490,7 +491,7 @@ export default function HomeScreen({ route, navigation }: any) {
                       (coordinates.length > 2) ? coordinates.slice(1, -1): undefined
                     }
                     destination={coordinates[coordinates.length-1]}
-                    apikey={process.env.EXPO_PUBLIC_GOOGLE_MAP_API_KEY === undefined ? "" : process.env.EXPO_PUBLIC_GOOGLE_MAP_API_KEY}
+                    apikey={Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_API_KEY === undefined ? "" : Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_API_KEY}
                     language={userSettings.language}
                     mode="WALKING"
                     strokeWidth={3}
