@@ -1,41 +1,28 @@
-import {
-    ButtonText, Box,
-    Pressable,
-    Icon,
-    VStack,
-} from '@gluestack-ui/themed';
+import { ButtonText } from "./button";
+import { Icon } from "./icon";
+import { Pressable } from "./pressable";
+import { VStack } from "./vstack";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface FooterButtonProps {
     title: string;
     icon: any;
     onPress: () => void;
+    onLongPress?: () => void;
 };
 
-export const FooterButton: React.FC<FooterButtonProps> = ({ title, icon, onPress }) => {
+export const FooterButton: React.FC<FooterButtonProps> = ({ title, icon, onPress, onLongPress }) => {
+    const {theme} = useTheme() as any;
     return (
-        <Pressable onPress={onPress}>
+        <Pressable onPress={onPress} onLongPress={onLongPress}>
             <VStack space="xs" alignItems="center" justifyContent="center">
                 <Icon
                     as={icon}
                     size="xl"
-                    sx={{
-                        _dark: {
-                            color: '$light900',
-                        },
-                        _light: {
-                            color: '$light200',
-                        },
-                    }}
+                    primaryTheme={theme}
                 />
                 <ButtonText
-                    sx={{
-                        _dark: {
-                            color: '$light900',
-                        },
-                        _light: {
-                            color: '$light200',
-                        },
-                    }}
+                    primaryTheme={theme}
                 >{title}</ButtonText>
             </VStack>
         </Pressable>

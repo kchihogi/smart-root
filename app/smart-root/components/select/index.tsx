@@ -206,7 +206,7 @@ const StyledItemText = styled(
     props: {
       size: 'md',
     },
-    color: '$text800',
+    color: '$onTertiary',
   },
   {
     ancestorStyle: ['_text'],
@@ -689,6 +689,68 @@ const StyledSelectTrigger = styled(
             },
           },
         },
+        none: {
+          '_input': {
+            _web: {
+              outlineWidth: 0,
+              outline: 'none',
+            },
+            px: '$0',
+          },
+
+          'borderWidth': 0,
+          'borderRadius': 0,
+          'borderBottomWidth': 0,
+
+          ':focus': {
+            'borderColor': '$primary700',
+            '_web': {
+              boxShadow: 'inset 0 -1px 0 0 $primary700',
+            },
+            ':hover': {
+              borderColor: '$primary700',
+              _web: {
+                boxShadow: 'inset 0 -1px 0 0 $primary600',
+              },
+            },
+          },
+
+          ':invalid': {
+            'borderBottomWidth': 2,
+            'borderBottomColor': '$error700',
+            '_web': {
+              boxShadow: 'inset 0 -1px 0 0 $error700',
+            },
+            ':hover': {
+              borderBottomColor: '$error700',
+            },
+            ':focus': {
+              'borderBottomColor': '$error700',
+              ':hover': {
+                borderBottomColor: '$error700',
+                _web: {
+                  boxShadow: 'inset 0 -1px 0 0 $error700',
+                },
+              },
+            },
+            ':disabled': {
+              ':hover': {
+                borderBottomColor: '$error700',
+                _web: {
+                  boxShadow: 'inset 0 -1px 0 0 $error700',
+                },
+              },
+            },
+          },
+        },
+      },
+      theme: {
+        'light': {
+          borderColor:"$onSecondaryContainer"
+        },
+        'dark': {
+          borderColor:"$onSecondaryContainerDark"
+        },
       },
     },
 
@@ -717,6 +779,22 @@ const StyledSelectInput = styled(
 
     props: {
       placeholderTextColor: '$text500',
+    },
+    variants: {
+      theme: {
+        'light': {
+          color:"$onSecondaryContainer",
+          props: {
+            placeholderTextColor: '$onSurfaceVariant',
+          },
+        },
+        'dark': {
+          color:"$onSecondaryContainerDark",
+          props: {
+            placeholderTextColor: '$onSurfaceVariantDark',
+          },
+        },
+      },
     },
   },
   {

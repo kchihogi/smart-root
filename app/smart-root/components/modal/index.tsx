@@ -72,6 +72,7 @@ const StyledBackdrop = styled(
     '_web': {
       cursor: 'default',
     },
+
   },
   {}
 );
@@ -104,6 +105,17 @@ const StyledContent = styled(
       opacity: {
         type: 'timing',
         duration: 250,
+      },
+    },
+
+    variants: {
+      theme: {
+        'light': {
+          bg:"$surfaceBright"
+        },
+        'dark': {
+          bg:"$surfaceBrightDark"
+        },
       },
     },
 

@@ -26,8 +26,8 @@
             "ionutvmi.path-autocomplete",
             "chrmarti.regex",
             "humao.rest-client",
-            "GitHub.copilot"
-            
+            "GitHub.copilot",
+            "MarkosTh09.color-picker"
         ]
     }
 }

@@ -36,6 +36,14 @@ const StyledRoot = styled(View, {
         flexDirection: 'row-reverse',
       },
     },
+    theme: {
+      'light': {
+        backgroundColor: '$primary',
+      },
+      'dark': {
+        backgroundColor: '$primaryContainerDark',
+      },
+    },
   },
 });
 

@@ -57,6 +57,30 @@ const StyledRoot = styled(
             size: 24,
           },
         },
+        '2xl': {
+          h: '$8',
+          w: '$8',
+          props: {
+            //@ts-ignore
+            size: 32,
+          },
+        },
+      },
+      theme: {
+        'light': {
+          color:"$onSecondaryContainer"
+        },
+        'dark': {
+          color:"$onSecondaryContainerDark"
+        },
+      },
+      primaryTheme: {
+        'light': {
+          color:"$onPrimary"
+        },
+        'dark': {
+          color:"$onPrimaryContainerDark"
+        },
       },
     },
     props: {

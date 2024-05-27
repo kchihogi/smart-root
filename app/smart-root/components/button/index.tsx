@@ -362,6 +362,23 @@ const StyledRoot = styled(
           },
         },
       },
+
+      theme: {
+        'light': {
+          backgroundColor: '$secondary',
+        },
+        'dark': {
+          backgroundColor: '$secondaryDark',
+        },
+      },
+      primaryTheme: {
+        'light': {
+          backgroundColor:"$primary"
+        },
+        'dark': {
+          backgroundColor:"$primaryContainerDark"
+        },
+      },
     },
     'compoundVariants': [
       {
@@ -659,7 +676,7 @@ const StyledText = styled(
   Text,
   {
     color: '$text700',
-    flex: 1,
+    // flex: 1,
     fontWeight: '$normal',
     fontFamily: '$body',
     fontStyle: 'normal',
@@ -749,6 +766,11 @@ const StyledText = styled(
           bg: '$yellow500',
         },
       },
+      flex: {
+        true: {
+          flex: 1,
+        },
+      },
     },
 
     defaultProps: {
@@ -766,6 +788,32 @@ const StyledButtonText = styled(
     color: '$textLight0',
     _web: {
       userSelect: 'none',
+    },
+    variants: {
+      theme: {
+        'light': {
+          color: '$onSecondary',
+        },
+        'dark': {
+          color: '$onSecondaryDark',
+        },
+      },
+      primaryTheme: {
+        'light': {
+          color:"$onPrimary"
+        },
+        'dark': {
+          color:"$onPrimaryContainerDark"
+        },
+      },
+      surfaceTheme: {
+        'light': {
+          color:"$onSurface"
+        },
+        'dark': {
+          color:"$onSurfaceDark"
+        },
+      },
     },
   },
   {
@@ -839,6 +887,9 @@ const StyledGroup = styled(
         },
         '4xl': {
           gap: '$8',
+        },
+        'none': {
+          gap: 0,
         },
       },
       isAttached: {

@@ -233,11 +233,20 @@ const StyledRoot = styled(
           },
         },
       },
+      theme: {
+        light: {
+          backgroundColor: '$secondaryContainer',
+        },
+        dark: {
+          backgroundColor: '$secondaryContainerDark',
+        },
+      },
     },
 
     'defaultProps': {
       size: 'md',
       variant: 'outline',
+      theme: 'light',
     },
   },
   {
@@ -300,11 +309,20 @@ const StyledIcon = styled(
           },
         },
       },
+      theme: {
+        'light': {
+          backgroundColor: '$secondaryContainer',
+        },
+        'dark': {
+          backgroundColor:"$secondaryContainerDark"
+        },
+      },
     },
     props: {
       size: 'md',
       // @ts-ignore
       fill: 'none',
+      theme: 'light',
     },
   },
   {
@@ -395,6 +413,20 @@ const StyledInputField = styled(
 
         '6xl': {
           fontSize: '$6xl',
+        },
+      },
+      theme: {
+        'light': {
+          color: '$onSecondaryContainer',
+          props: {
+            placeholderTextColor: '$outlineVariant',
+          },
+        },
+        'dark': {
+          color: '$onSecondaryContainerDark',
+          props: {
+            placeholderTextColor: '$onSurfaceVariantDark',
+          },
         },
       },
     },

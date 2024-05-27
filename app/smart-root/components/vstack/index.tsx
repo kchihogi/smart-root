@@ -1,6 +1,7 @@
 import { styled } from '@gluestack-style/react';
 import { View } from 'react-native';
 
+
 const StyledRoot = styled(
   View,
   {
@@ -35,6 +36,14 @@ const StyledRoot = styled(
       reversed: {
         true: {
           flexDirection: 'column-reverse',
+        },
+      },
+      theme: {
+        'light': {
+          backgroundColor: '$secondaryContainer',
+        },
+        'dark': {
+          backgroundColor: '$secondaryContainerDark',
         },
       },
     },

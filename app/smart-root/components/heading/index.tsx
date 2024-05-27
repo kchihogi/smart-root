@@ -104,6 +104,14 @@ const StyledRoot = styled(H4, {
         bg: '$yellow500',
       },
     },
+    theme: {
+      'light': {
+        color:"$onSurface"
+      },
+      'dark': {
+        color:"$onSurfaceDark"
+      },
+    },
   },
 
   defaultProps: {

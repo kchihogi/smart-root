@@ -94,6 +94,14 @@ const StyledText = styled(
           bg: '$yellow500',
         },
       },
+      theme: {
+        'light': {
+          color:"$onSecondaryContainer"
+        },
+        'dark': {
+          color:"$onSecondaryContainerDark"
+        },
+      },
     },
 
     defaultProps: {
