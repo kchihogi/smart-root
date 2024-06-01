@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { 
   AlertDialog, AlertDialogBackdrop, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, AlertDialogCloseButton
-  , Button, ButtonGroup, ButtonText, Box, Center, HStack, Heading, Icon, Text
+  , Button, ButtonGroup, ButtonText, Box, Center, HStack, Heading, Icon, Text, Input, InputField
   , Switch
   , VStack
   , Select, SelectIcon, SelectItem, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicatorWrapper, SelectDragIndicator
@@ -21,6 +21,7 @@ export default function SettingsScreen({ navigation }: any) {
   const { theme, setTheme } = useTheme() as any;
   const {userSettings, setUserSettings} = useUserSettings() as any;
   const {reloadUnits} = useConstants();
+  const [isInputValid, setIsInputValid] = React.useState(true);
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -46,6 +47,19 @@ export default function SettingsScreen({ navigation }: any) {
     setUserSettings({...userSettings, num_of_markers: userSettings.num_of_markers - 1});
   }
 
+  const onChangeInputValue = (text: string) => {
+    if (isNaN(Number(text))) {
+      setIsInputValid(false);
+    } else {
+      if (Number(text) < 1 || Number(text) > 200) {
+        setIsInputValid(false);
+        return;
+      }
+      setIsInputValid(true);
+      setUserSettings({...userSettings, walk_speed: Math.floor(Number(text))});
+    }
+  }
+
   return (
     <Box>
       <VStack rounded="$md" mx="$4" mb="$4" space="md" p="$4" theme={theme}>
@@ -64,7 +78,18 @@ export default function SettingsScreen({ navigation }: any) {
           <Icon as={LUCIDE.Gauge} size="xl" theme={theme} />
           <VStack w="30%">
             <Text theme={theme} bold={true}>{t('walk-speed')}</Text>
-            <Text theme={theme}>{userSettings.walk_speed} m/s</Text>
+            <HStack space="sm" alignItems="center">
+              <Input size="sm" w="$16 text-align: center" theme={theme} variant="outline" isDisabled={false} isInvalid={isInputValid ? false : true} isReadOnly={false}>
+                <InputField
+                  defaultValue={userSettings.walk_speed.toString()}
+                  inputMode="numeric"
+                  keyboardType="numeric"
+                  onChangeText={(text) => { onChangeInputValue(text) }}
+                  theme={theme}
+                />
+              </Input>
+              <Text size="xs" mt="$4" theme={theme}>m/s</Text>
+            </HStack>
           </VStack>
           <Center w="$48">
               <Slider
