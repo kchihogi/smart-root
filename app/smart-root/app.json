@@ -3,7 +3,7 @@
     "owner": "k_chihogi",
     "name": "Smart Root",
     "slug": "smart-root",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon_B.png",
     "userInterfaceStyle": "light",
@@ -16,11 +16,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kchihogi.smartroot"
     },
     "android": {
       "package": "com.kchihogi.smartroot",
-      "versionCode": 5,
+      "versionCode": 6,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon_B.png",
         "backgroundColor": "#FFFFFF"
