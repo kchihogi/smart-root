@@ -1,5 +1,6 @@
 //React/React-Native
 import * as React from "react";
+import {Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback} from "react-native";
 
 //Expo
 import Constants from 'expo-constants';
@@ -434,169 +435,173 @@ export default function HomeScreen({ route, navigation }: any) {
 
   //return
   return (
-    <CP.Box>
-      <CP.VStack>
-        <CP.Center
-          w="100%"
-          h="90%"
-        >
-          <MapView style={{width: "100%", height: "100%"}} ref={mapRef}
-            provider={PROVIDER_GOOGLE}
-            initialRegion={region}
-            mapType="standard"
-            userInterfaceStyle={mapTheme}
-            showsUserLocation={true}
-            showsMyLocationButton={false}
-            showsCompass={false}
-            toolbarEnabled={false}
-            scrollEnabled={!handDrawingMode}
-            onRegionChange={onRegionChange}
-            onUserLocationChange={onUserLocationChange}
-            onPanDrag={onPanDrag}
-            onLongPress={onLongPress}
-            onMarkerPress={onMarkerPress}
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={"height"}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <CP.Box>
+          <CP.VStack>
+            <CP.Center
+              w="100%"
+              h="90%"
             >
-              {
-                markers.map((marker : any, index : number) => (
-                <Marker
-                  identifier={index.toString()}
-                  key={index}
-                  coordinate={marker.latlng}
-                />))
-              }
-              {
-                coordinatesByDraw.length ? (
-                  <Polyline 
-                    coordinates={coordinatesByDraw}
-                    strokeWidth={3}
-                    strokeColor={config.tokens.colors.blue400}
-                  />
-                ) : null
-              }
-              {
-                requestCoordinates.length ? (
-                  <Polygon 
-                    coordinates={requestCoordinates}
-                    strokeWidth={3}
-                    strokeColor={config.tokens.colors.green500}
-                    fillColor= {hexToRGBAColor(config.tokens.colors.green500, config.tokens.opacity[30])}
-                  />
-                ) : null
-              }
-              {
-                (coordinates.length >= 2) ? (
-                  <MapViewDirections
-                    origin={coordinates[0]}
-                    waypoints={
-                      (coordinates.length > 2) ? coordinates.slice(1, -1): undefined
-                    }
-                    destination={coordinates[coordinates.length-1]}
-                    apikey={Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_API_KEY === undefined ? "" : Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_API_KEY}
-                    language={userSettings.language}
-                    mode="WALKING"
-                    strokeWidth={3}
-                    strokeColor={config.tokens.colors.pink500}
-                    optimizeWaypoints={true}
-                    onReady={onMapDirectionReady}
-                    onError={onMapDirectionError}
-                  />
-                ) : null
-              }
-          </MapView>
-        </CP.Center>
-        <CP.HStack
-          w="100%"
-          h="10%"
-          theme={theme}
-        >
-          <CP.Center w="33.00%">
-            <FooterButton title={t("save")} icon={LUCIDE.Star} onPress={onPressSaveButton} onLongPress={onPressFavsButton}/>
-          </CP.Center>
-          <CP.Center w="33.00%">
-            <FooterButton title={t("route-me")} icon={LUCIDE.Footprints} onPress={onPressRouteMeButton} onLongPress={onPressClearButton}/>
-          </CP.Center>
-          <CP.Center w="33.00%">
-            <FooterButton title={t("open-map")} icon={LUCIDE.Map} onPress={onPressOpenMapButton} />
-          </CP.Center>
-          {/* <CP.Center w="33.00%">
-            <FooterButton title={t("tools")} icon={LUCIDE.PencilRuler} onPress={onPressToolsButton} />
-          </CP.Center> */}
-        </CP.HStack>
-      </CP.VStack>
-      <CP.Center
-        top="2%"
-        left="5%"
-        w="90%"
-        h="7%"
-        rounded="$3xl"
-        sx={{
-          _dark: {
-          },
-          _light: {
-            bg: "$light200",
-          }
-        }}
-        position="absolute"
-      >
-      <CP.HStack h="100%">
-          <CP.Input w="100%" h="100%" rounded="$3xl" theme={theme}
-          variant="rounded" isDisabled={false} isInvalid={isInputValid ? false : true} isReadOnly={false}>
-            <CP.InputField
-                placeholder={t("input-placeholder")}
-                inputMode="numeric"
-                keyboardType="numeric"
-                onChangeText={(text) => { onChangeInputValue(text) }}
-                theme={theme}
-            />
-            <CP.Select w="28%" h="100%"
-              onValueChange={(value) => { setInputUnit(value); setUserSettings({...userSettings, unit_index: units.findIndex((unit) => unit.value === value)}) } }
+              <MapView style={{width: "100%", height: "100%"}} ref={mapRef}
+                provider={PROVIDER_GOOGLE}
+                initialRegion={region}
+                mapType="standard"
+                userInterfaceStyle={mapTheme}
+                showsUserLocation={true}
+                showsMyLocationButton={false}
+                showsCompass={false}
+                toolbarEnabled={false}
+                scrollEnabled={!handDrawingMode}
+                onRegionChange={onRegionChange}
+                onUserLocationChange={onUserLocationChange}
+                onPanDrag={onPanDrag}
+                onLongPress={onLongPress}
+                onMarkerPress={onMarkerPress}
+                >
+                  {
+                    markers.map((marker : any, index : number) => (
+                    <Marker
+                      identifier={index.toString()}
+                      key={index}
+                      coordinate={marker.latlng}
+                    />))
+                  }
+                  {
+                    coordinatesByDraw.length ? (
+                      <Polyline 
+                        coordinates={coordinatesByDraw}
+                        strokeWidth={3}
+                        strokeColor={config.tokens.colors.blue400}
+                      />
+                    ) : null
+                  }
+                  {
+                    requestCoordinates.length ? (
+                      <Polygon 
+                        coordinates={requestCoordinates}
+                        strokeWidth={3}
+                        strokeColor={config.tokens.colors.green500}
+                        fillColor= {hexToRGBAColor(config.tokens.colors.green500, config.tokens.opacity[30])}
+                      />
+                    ) : null
+                  }
+                  {
+                    (coordinates.length >= 2) ? (
+                      <MapViewDirections
+                        origin={coordinates[0]}
+                        waypoints={
+                          (coordinates.length > 2) ? coordinates.slice(1, -1): undefined
+                        }
+                        destination={coordinates[coordinates.length-1]}
+                        apikey={Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_API_KEY === undefined ? "" : Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_API_KEY}
+                        language={userSettings.language}
+                        mode="WALKING"
+                        strokeWidth={3}
+                        strokeColor={config.tokens.colors.pink500}
+                        optimizeWaypoints={true}
+                        onReady={onMapDirectionReady}
+                        onError={onMapDirectionError}
+                      />
+                    ) : null
+                  }
+              </MapView>
+            </CP.Center>
+            <CP.HStack
+              w="100%"
+              h="10%"
+              theme={theme}
             >
-              <CP.SelectTrigger w="100%" h="100%" variant="none" rounded="$3xl" ml ="$3">
-                <CP.SelectInput placeholder={units[userSettings.unit_index].label} defaultValue={units[userSettings.unit_index].value} theme={theme} />
-                <CP.SelectIcon mr="$8">
-                  <CP.Icon as={LUCIDE.ChevronDownIcon} />
-                </CP.SelectIcon>
-              </CP.SelectTrigger>
-              <CP.SelectPortal>
-                <CP.SelectBackdrop/>
-                <CP.SelectContent bg="$tertiary">
-                  <CP.SelectDragIndicatorWrapper>
-                    <CP.SelectDragIndicator />
-                  </CP.SelectDragIndicatorWrapper>
-                  <CP.SelectItem label={units[C.UNIT_INDEX.minutes].label} value={units[C.UNIT_INDEX.minutes].value} />
-                  <CP.SelectItem label={units[C.UNIT_INDEX.hours].label} value={units[C.UNIT_INDEX.hours].value} />
-                  <CP.SelectItem label={units[C.UNIT_INDEX.m].label} value={units[C.UNIT_INDEX.m].value} />
-                  <CP.SelectItem label={units[C.UNIT_INDEX.Km].label} value={units[C.UNIT_INDEX.Km].value} />
-                </CP.SelectContent>
-              </CP.SelectPortal>
-            </CP.Select>
-          </CP.Input>
-        </CP.HStack>
-      </CP.Center>
-          <CP.Pressable
-            right="2%"
-            bottom="11%"
+              <CP.Center w="33.00%">
+                <FooterButton title={t("save")} icon={LUCIDE.Star} onPress={onPressSaveButton} onLongPress={onPressFavsButton}/>
+              </CP.Center>
+              <CP.Center w="33.00%">
+                <FooterButton title={t("route-me")} icon={LUCIDE.Footprints} onPress={onPressRouteMeButton} onLongPress={onPressClearButton}/>
+              </CP.Center>
+              <CP.Center w="33.00%">
+                <FooterButton title={t("open-map")} icon={LUCIDE.Map} onPress={onPressOpenMapButton} />
+              </CP.Center>
+              {/* <CP.Center w="33.00%">
+                <FooterButton title={t("tools")} icon={LUCIDE.PencilRuler} onPress={onPressToolsButton} />
+              </CP.Center> */}
+            </CP.HStack>
+          </CP.VStack>
+          <CP.Center
+            top="2%"
+            left="5%"
+            w="90%"
+            h="7%"
+            rounded="$3xl"
+            sx={{
+              _dark: {
+              },
+              _light: {
+                bg: "$light200",
+              }
+            }}
             position="absolute"
-            onPress={() => {onPressCrossHairButton()}}
           >
-            <CP.Icon
-              as = {followUser ? LUCIDE.LocateFixed : LUCIDE.Locate}
-              size="2xl"
-              color={followUser ? "$blue700" : "$coolGray500"}
-            />
-          </CP.Pressable>
-          {handDrawingMode ? (
-            <CP.Button
-              right="2%"
-              bottom="15%"
-              rounded="$3xl"
-              position="absolute"
-              onPress={() => {onPressFinishButton()}}
-            >
-              <CP.ButtonText>Finish</CP.ButtonText>
-            </CP.Button>
-          ) : null}
-          <FavsSaveModal showFavsSaveModal={showFavsSaveModal} setShowFavsSaveModal={setShowFavsSaveModal} nameOfFavRoute={nameOfFavRoute} setNameOfFavRoute={setNameOfFavRoute} onPressSubmitSaveButton={onPressSubmitSaveButton} />
-    </CP.Box>
+          <CP.HStack h="100%">
+              <CP.Input w="100%" h="100%" rounded="$3xl" theme={theme}
+              variant="rounded" isDisabled={false} isInvalid={isInputValid ? false : true} isReadOnly={false}>
+                <CP.InputField
+                    placeholder={t("input-placeholder")}
+                    inputMode="numeric"
+                    keyboardType="numeric"
+                    onChangeText={(text) => { onChangeInputValue(text) }}
+                    theme={theme}
+                />
+                <CP.Select w="28%" h="100%"
+                  onValueChange={(value) => { setInputUnit(value); setUserSettings({...userSettings, unit_index: units.findIndex((unit) => unit.value === value)}) } }
+                >
+                  <CP.SelectTrigger w="100%" h="100%" variant="none" rounded="$3xl" ml ="$3">
+                    <CP.SelectInput placeholder={units[userSettings.unit_index].label} defaultValue={units[userSettings.unit_index].value} theme={theme} />
+                    <CP.SelectIcon mr="$8">
+                      <CP.Icon as={LUCIDE.ChevronDownIcon} />
+                    </CP.SelectIcon>
+                  </CP.SelectTrigger>
+                  <CP.SelectPortal>
+                    <CP.SelectBackdrop/>
+                    <CP.SelectContent bg="$tertiary">
+                      <CP.SelectDragIndicatorWrapper>
+                        <CP.SelectDragIndicator />
+                      </CP.SelectDragIndicatorWrapper>
+                      <CP.SelectItem label={units[C.UNIT_INDEX.minutes].label} value={units[C.UNIT_INDEX.minutes].value} />
+                      <CP.SelectItem label={units[C.UNIT_INDEX.hours].label} value={units[C.UNIT_INDEX.hours].value} />
+                      <CP.SelectItem label={units[C.UNIT_INDEX.m].label} value={units[C.UNIT_INDEX.m].value} />
+                      <CP.SelectItem label={units[C.UNIT_INDEX.Km].label} value={units[C.UNIT_INDEX.Km].value} />
+                    </CP.SelectContent>
+                  </CP.SelectPortal>
+                </CP.Select>
+              </CP.Input>
+            </CP.HStack>
+          </CP.Center>
+              <CP.Pressable
+                right="2%"
+                bottom="11%"
+                position="absolute"
+                onPress={() => {onPressCrossHairButton()}}
+              >
+                <CP.Icon
+                  as = {followUser ? LUCIDE.LocateFixed : LUCIDE.Locate}
+                  size="2xl"
+                  color={followUser ? "$blue700" : "$coolGray500"}
+                />
+              </CP.Pressable>
+              {handDrawingMode ? (
+                <CP.Button
+                  right="2%"
+                  bottom="15%"
+                  rounded="$3xl"
+                  position="absolute"
+                  onPress={() => {onPressFinishButton()}}
+                >
+                  <CP.ButtonText>Finish</CP.ButtonText>
+                </CP.Button>
+              ) : null}
+              <FavsSaveModal showFavsSaveModal={showFavsSaveModal} setShowFavsSaveModal={setShowFavsSaveModal} nameOfFavRoute={nameOfFavRoute} setNameOfFavRoute={setNameOfFavRoute} onPressSubmitSaveButton={onPressSubmitSaveButton} />
+        </CP.Box>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }

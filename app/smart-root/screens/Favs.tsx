@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback} from "react-native";
 import {
     Button, ButtonGroup, ButtonText, Box, Center, HStack, Icon
     , VStack
@@ -67,32 +68,36 @@ export default function FavsScreen({ navigation }: any) {
     };
 
     return (
-        <Box>
-            <ScrollView>
-                <VStack rounded="$md" mx="$1" mb="$4" space="md" p="$4" theme={theme} flex={1}>
-                    {favRoutes.map((route: any, index: number) => (
-                        <HStack key={index}>
-                            <ButtonGroup isAttached={true}>
-                                <Button primaryTheme={theme} onPress={() => onPressGo(route)} w="70%" justifyContent="flex-start" >
-                                    <ButtonText primaryTheme={theme} bold={true} isTruncated={true}>{route.name}</ButtonText>
-                                </Button>
-                                <Button primaryTheme={theme} onPress={() => onPressEdit(index)} >
-                                    <Icon as={LUCIDE.Edit} theme={theme}/>
-                                </Button>
-                                <Button primaryTheme={theme} onPress={() => onPressDelete(index)} >
-                                    <Icon as={LUCIDE.Trash} theme={theme} />
-                                </Button>
-                            </ButtonGroup>
-                        </HStack>
-                    ))}
-                </VStack>
-                <Center mb="$4" >
-                    <Button onPress={() => navigation.navigate(t('home'))} theme={theme} w="70%">
-                    <ButtonText theme={theme} size="md" bold={true}>{t('go-to-home')}</ButtonText>
-                    </Button>
-                </Center>
-            </ScrollView>
-            <FavsSaveModal showFavsSaveModal={showFavsSaveModal} setShowFavsSaveModal={setShowFavsSaveModal} nameOfFavRoute={nameOfFavRoute} setNameOfFavRoute={setNameOfFavRoute} onPressSubmitSaveButton={onPressSubmitSaveButton} />
-        </Box>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={"height"}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <Box>
+                    <ScrollView>
+                        <VStack rounded="$md" mx="$1" mb="$4" space="md" p="$4" theme={theme} flex={1}>
+                            {favRoutes.map((route: any, index: number) => (
+                                <HStack key={index}>
+                                    <ButtonGroup isAttached={true}>
+                                        <Button primaryTheme={theme} onPress={() => onPressGo(route)} w="70%">
+                                            <ButtonText primaryTheme={theme} bold={true} isTruncated={true}>{route.name}</ButtonText>
+                                        </Button>
+                                        <Button primaryTheme={theme} onPress={() => onPressEdit(index)} w="15%">
+                                            <Icon as={LUCIDE.Edit} theme={theme}/>
+                                        </Button>
+                                        <Button primaryTheme={theme} onPress={() => onPressDelete(index)} w="15%">
+                                            <Icon as={LUCIDE.Trash} theme={theme} />
+                                        </Button>
+                                    </ButtonGroup>
+                                </HStack>
+                            ))}
+                        </VStack>
+                        <Center mb="$4" >
+                            <Button onPress={() => navigation.navigate(t('home'))} theme={theme} w="70%">
+                            <ButtonText theme={theme} size="md" bold={true}>{t('go-to-home')}</ButtonText>
+                            </Button>
+                        </Center>
+                    </ScrollView>
+                    <FavsSaveModal showFavsSaveModal={showFavsSaveModal} setShowFavsSaveModal={setShowFavsSaveModal} nameOfFavRoute={nameOfFavRoute} setNameOfFavRoute={setNameOfFavRoute} onPressSubmitSaveButton={onPressSubmitSaveButton} />
+                </Box>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 }
