@@ -27,7 +27,7 @@ import { useUserSettings } from "../contexts/UserSettingsContext";
 import * as C from "../utils/constants";
 
 export default function HomeScreen({ route, navigation }: any) {
-  const mapRef = React.useRef() as any;
+  const mapRef = React.useRef(null) as any;
   const eventCounter = React.useRef(0);
   const mapTheme = useMapTheme();
   const {theme} = useTheme() as any;
@@ -154,7 +154,9 @@ export default function HomeScreen({ route, navigation }: any) {
         latitude: newRegion.latitude,
         longitude: newRegion.longitude,
       }));
-      mapRef.current.animateToRegion(region, C.MAP_FIT_ANIMATION_DURATION);
+      if (mapRef.current) {
+        mapRef.current.animateToRegion(region, C.MAP_FIT_ANIMATION_DURATION);
+      }
     }
   };
 
@@ -242,7 +244,9 @@ export default function HomeScreen({ route, navigation }: any) {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       }));
-      mapRef.current.animateToRegion(region, C.MAP_FIT_ANIMATION_DURATION);
+      if (mapRef.current) {
+        mapRef.current.animateToRegion(region, C.MAP_FIT_ANIMATION_DURATION);
+      }
     });
   };
 
@@ -423,10 +427,12 @@ export default function HomeScreen({ route, navigation }: any) {
 
   const onMapDirectionReady = (result : any) => {
     setRootResult(result);
-    mapRef.current.fitToCoordinates(
-        result.coordinates,
-        {animated: true},
-    );
+    if (mapRef.current) {
+      mapRef.current.fitToCoordinates(
+          result.coordinates,
+          {animated: true},
+      );
+    }
   };
 
   const onMapDirectionError = (error : any) => {
