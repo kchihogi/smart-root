@@ -447,7 +447,7 @@ export default function HomeScreen({ route, navigation }: any) {
           <CP.VStack>
             <CP.Center
               w="100%"
-              h="90%"
+              h="88.5%"
             >
               <MapView style={{width: "100%", height: "100%"}} ref={mapRef}
                 provider={PROVIDER_GOOGLE}
@@ -584,7 +584,7 @@ export default function HomeScreen({ route, navigation }: any) {
           </CP.Center>
               <CP.Pressable
                 right="2%"
-                bottom="11%"
+                bottom="14%"
                 position="absolute"
                 onPress={() => {onPressCrossHairButton()}}
               >
@@ -597,7 +597,7 @@ export default function HomeScreen({ route, navigation }: any) {
               {handDrawingMode ? (
                 <CP.Button
                   right="2%"
-                  bottom="15%"
+                  bottom="17%"
                   rounded="$3xl"
                   position="absolute"
                   onPress={() => {onPressFinishButton()}}
