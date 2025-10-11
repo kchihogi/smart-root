@@ -3,7 +3,7 @@
     "owner": "k_chihogi",
     "name": "Smart Root",
     "slug": "smart-root",
-    "version": "2.0.7",
+    "version": "3.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon_B.png",
     "userInterfaceStyle": "light",
@@ -21,7 +21,9 @@
     },
     "android": {
       "package": "com.kchihogi.smartroot",
-      "versionCode": 9,
+      "versionCode": 10,
+      "compileSdkVersion": 35,
+      "targetSdkVersion": 35,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon_B.png",
         "backgroundColor": "#FFFFFF"
@@ -36,7 +38,18 @@
       }
     },
     "plugins": [
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "minSdkVersion": 24,
+            "buildToolsVersion": "35.0.0"
+          }
+        }
+      ]
     ]
   }
 }
