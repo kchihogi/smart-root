@@ -21,7 +21,6 @@
     },
     "android": {
       "package": "com.kchihogi.smartroot",
-      "versionCode": 11,
       "compileSdkVersion": 35,
       "targetSdkVersion": 35,
       "adaptiveIcon": {
