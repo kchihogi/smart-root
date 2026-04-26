@@ -98,6 +98,9 @@ const StyledText = styled(
   Text,
   {
     color: '$text700',
+    _dark: {
+      color: '$onSecondaryContainerDark',
+    },
     flex: 1,
     fontWeight: '$normal',
     fontFamily: '$body',

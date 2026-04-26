@@ -1,6 +1,7 @@
 //React/React-Native
 import * as React from "react";
 import {Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback} from "react-native";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 //Expo
 import Constants from 'expo-constants';
@@ -29,6 +30,7 @@ import * as C from "../utils/constants";
 export default function HomeScreen({ route, navigation }: any) {
   const mapRef = React.useRef(null) as any;
   const eventCounter = React.useRef(0);
+  const insets = useSafeAreaInsets();
   const mapTheme = useMapTheme();
   const {theme} = useTheme() as any;
   const { t } = useTranslation();
@@ -568,7 +570,7 @@ export default function HomeScreen({ route, navigation }: any) {
                   </CP.SelectTrigger>
                   <CP.SelectPortal>
                     <CP.SelectBackdrop/>
-                    <CP.SelectContent bg="$tertiary">
+                    <CP.SelectContent bg="$tertiary" pb={insets.bottom + 8}>
                       <CP.SelectDragIndicatorWrapper>
                         <CP.SelectDragIndicator />
                       </CP.SelectDragIndicatorWrapper>

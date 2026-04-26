@@ -6,7 +6,6 @@ import {
   , Switch
   , VStack
   , Select, SelectIcon, SelectItem, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicatorWrapper, SelectDragIndicator
-  ,Slider, SliderTrack, SliderFilledTrack, SliderThumb
 } from '../components';
 import * as LUCIDE from "lucide-react-native";
 
@@ -46,6 +45,16 @@ export default function SettingsScreen({ navigation }: any) {
   const onMarkerMinus = () => {
     if (userSettings.num_of_markers <= 1) return;
     setUserSettings({...userSettings, num_of_markers: userSettings.num_of_markers - 1});
+  }
+
+  const onWalkSpeedPlus = () => {
+    if (userSettings.walk_speed >= 200) return;
+    setUserSettings({...userSettings, walk_speed: userSettings.walk_speed + 1});
+  }
+
+  const onWalkSpeedMinus = () => {
+    if (userSettings.walk_speed <= 1) return;
+    setUserSettings({...userSettings, walk_speed: userSettings.walk_speed - 1});
   }
 
   const onChangeInputValue = (text: string) => {
@@ -95,20 +104,14 @@ export default function SettingsScreen({ navigation }: any) {
                 </HStack>
               </VStack>
               <Center w="$48">
-                  <Slider
-                    step={1}
-                    sliderTrackHeight={4}
-                    value={userSettings.walk_speed}
-                    maxValue={200}
-                    minValue={1}
-                    onChange={v => {
-                      setUserSettings({...userSettings, walk_speed: Math.floor(v)});
-                    }}>
-                    <SliderTrack>
-                      <SliderFilledTrack />
-                    </SliderTrack>
-                    <SliderThumb/>
-                  </Slider>
+                <HStack space="sm">
+                  <Button onPress={onWalkSpeedMinus} primaryTheme={theme} size="sm" isDisabled={userSettings.walk_speed <= 1}>
+                    <Text theme={theme} size="xl" bold={true}>-</Text>
+                  </Button>
+                  <Button onPress={onWalkSpeedPlus} primaryTheme={theme} size="sm" isDisabled={userSettings.walk_speed >= 200}>
+                    <Text theme={theme} size="xl" bold={true}>+</Text>
+                  </Button>
+                </HStack>
               </Center>
             </HStack>
 
